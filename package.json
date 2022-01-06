@@ -1,0 +1,12 @@
+{
+  "name": "api-rrhh",
+  "version": "1.0.0",
+  "description": "api del sistema de gestion del area de recursos humanos",
+  "main": "index.js",
+  "repository": "https://github.com/FSCB21/Sistema-RRHH.git",
+  "author": "FSCB21 <freddystibencb@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
