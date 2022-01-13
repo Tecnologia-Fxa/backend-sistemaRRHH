@@ -1,27 +1,26 @@
-const EmpresaModel = require('../Database/Models/EmpresaModel')
+const TipoIdentificacionModel = require('../Database/Models/TipoIdentificacionModel')
 const { validationResult } = require('express-validator')
 
-const EmpresaControler = {
+const TipoIdentificacionController = {
 
     getAll:async(_req, res)=>{
-        const empresas = await EmpresaModel.findAll()
-        res.json(empresas)
+        const items = await TipoIdentificacionModel.findAll()
+        res.json(items)
     },
 
-    getOne: async(req,res)=>{
-        const empresa = await EmpresaModel.findByPk(req.params.id)
-        res.json(empresa)
+   getOne: async(req,res)=>{
+        const item = await TipoIdentificacionModel.findByPk(req.params.id)
+        res.json(item)
     },
 
     create: async(req,res)=>{
-        const {nombre, nit} = req.body
+        const {nombre} = req.body
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.status(400).json({ errors:errors.array() })
         }
-        await EmpresaModel.create({
-            nombre_empresa: nombre,
-            nit: nit
+        await TipoIdentificacionModel.create({
+            nombre_tipo_identificacion: nombre
         }).then(()=>{
             res.json("Creado con exito")
         }).catch(()=>{
@@ -35,12 +34,11 @@ const EmpresaControler = {
             return res.status(400).json({ errors:errors.array() })
         }
 
-        const {nombre, nit} = req.body
-        await EmpresaModel.update({
-            nombre_empresa: nombre,
-            nit:nit
+        const {nombre} = req.body
+        await TipoIdentificacionModel.update({
+            nombre_tipo_identificacion: nombre
         },{
-            where:{ id_empresa:req.params.id}
+            where:{ id_tipo_identificacion:req.params.id}
         }).catch(()=>{
             res.json('Error al actualizar')
         })
@@ -48,14 +46,14 @@ const EmpresaControler = {
     },
 
     delete: async(req,res)=>{
-        await EmpresaModel.destroy({
-            where:{id_empresa:req.params.id}
+        await TipoIdentificacionModel.destroy({
+            where:{id_tipo_identificacion:req.params.id}
         }).catch(err=>{
             res.json({err:"Error al borrar el producto"});
         });
         res.json("Borrado con exito")
     }
-
+ 
 }
 
-module.exports = EmpresaControler
+module.exports = TipoIdentificacionController
