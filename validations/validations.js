@@ -22,7 +22,7 @@ const validateName = (param) =>{
 
 const validateString = (param) =>{
     return check(param)
-            .isAlpha('es-ES',{ignore: ' .,-_'})
+            .isAlpha('es-ES',{ignore: ' .-_()'})
             .withMessage('Solo puede tener caracteres de la A a la Z')
 }
 

@@ -93,7 +93,7 @@ EmpleadoModel.belongsTo(ArlModel, { foreignKey:'arl_fk' })
 EpsModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'eps_fk' });
 EmpleadoModel.belongsTo(EpsModel, { foreignKey:'eps_fk' })
 
-//Relacion eps y empleado (foranea en empleado)
+//Relacion banco y empleado (foranea en empleado)
 BancoModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'banco_fk' });
 EmpleadoModel.belongsTo(BancoModel, { foreignKey:'banco_fk' })
 
@@ -130,20 +130,20 @@ EmpresaModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'id_empresa_fk' 
 EmpleadoModel.belongsTo(EmpresaModel, { foreignKey:'id_empresa_fk' })
 
 //Relacion empleado y jefe_zona (foranea en empleado)
-EmpleadoModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'jefe_zona_fk' });
-EmpleadoModel.belongsTo(EmpleadoModel, { foreignKey:'jefe_zona_fk' })
+EmpleadoModel.hasMany(EmpleadoModel, { foreignKey:'jefe_zona_fk' });
+EmpleadoModel.belongsTo(EmpleadoModel, { as:'jefe_zona', foreignKey:'jefe_zona_fk' })
 
 //Relacion ciudad y empleado (foranea en empleado) => lugar Nacimiento
 CiudadModel.hasMany(EmpleadoModel, { as:'empleado_lugar_nacimiento', foreignKey:'lugar_nacimiento_fk' });
-EmpleadoModel.belongsTo(CiudadModel, { foreignKey:'lugar_nacimiento_fk' })
+EmpleadoModel.belongsTo(CiudadModel, { as:'lugar_nacimiento', foreignKey:'lugar_nacimiento_fk' })
 
 //Relacion ciudad y empleado (foranea en empleado) => Lugar Expedicion doc
-CiudadModel.hasMany(EmpleadoModel, { as:'empleado_exp_doc', foreignKey:'lugar_exp_doc_fk' });
-EmpleadoModel.belongsTo(CiudadModel, { foreignKey:'lugar_exp_doc_fk' })
+CiudadModel.hasMany(EmpleadoModel, { as:'empleado_lugar_exp_doc', foreignKey:'lugar_exp_doc_fk' });
+EmpleadoModel.belongsTo(CiudadModel, { as:'lugar_exp_doc', foreignKey:'lugar_exp_doc_fk' })
 
 //Relacion ciudad y empleado (foranea en empleado) => lugar trabajo
 CiudadModel.hasMany(EmpleadoModel, { as:'empleado_lugar_trabajo', foreignKey:'lugar_trabajo_fk' });
-EmpleadoModel.belongsTo(CiudadModel, { foreignKey:'lugar_trabajo_fk' })
+EmpleadoModel.belongsTo(CiudadModel, { as:'lugar_trabajo', foreignKey:'lugar_trabajo_fk' })
 
 //Relacion tipo_documento y documento (foranea en documento)
 TipoDocumentoModel.hasMany(DocumentoModel, { as:'documento', foreignKey:'tipo_documento_fk' })
