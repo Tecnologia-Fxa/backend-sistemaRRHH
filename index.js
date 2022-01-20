@@ -11,6 +11,8 @@ require('./Database/relacionesBD')
 app.use(express.json());
 app.use(express.urlencoded({ extended:false }));
 
+const cors = require('cors')
+app.use(cors())
 app.use('/', require('./router/router'))
 
 app.listen(PORT, () =>{

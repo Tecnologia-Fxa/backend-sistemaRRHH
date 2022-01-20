@@ -12,7 +12,7 @@ CargoModel.init({
     },
 
     nombre_cargo:{
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING(35),
         unique: true,
         allowNull: false
     }
