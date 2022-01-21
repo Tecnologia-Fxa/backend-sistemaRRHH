@@ -73,7 +73,7 @@ const Controller = {
                 { model: TallaPantalonModel, attributes:['nombre_talla_pantalon']},
                 { model: TallaCalzadoModel, attributes:['nombre_talla_calzado']},
                 { model: TipoUsuarioModel, attributes:['nombre_tipo_usuario']},
-                { model: EmpresaModel, attributes:['nombre_empresa']}
+                { model: EmpresaModel, attributes:['nombre_empresa', 'nit']}
             ],
             attributes:['id_empleado','estado','numero_identificacion','nombres','apellidos','genero','fecha_nacimiento','fecha_expedicion_doc','fecha_ingreso','correo_electronico','direccion','telefono_fijo','celular','num_cuenta','riesgo','contacto_emergencia','tel_contacto_emergencia','src_fotografia',]
         })
