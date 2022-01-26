@@ -47,7 +47,7 @@ const Controller = {
     getOne: async(req,res)=>{
         const item = await EmpleadoModel.findByPk(req.params.id,{
             include:[
-                { model: TipoIdentificacionModel, attributes:['nombre_tipo_identificacion']},
+                /* { model: TipoIdentificacionModel, attributes:['nombre_tipo_identificacion']},
                 { model: CiudadModel, as:'lugar_nacimiento', attributes:['nombre_ciudad']},
                 { model: CiudadModel, as:'lugar_exp_doc', attributes:['nombre_ciudad']},
                 { model: NacionalidadModel, attributes:['nombre_nacionalidad']},
@@ -72,10 +72,9 @@ const Controller = {
                 { model: TallaCamisaModel, attributes:['nombre_talla_camisa']},
                 { model: TallaPantalonModel, attributes:['nombre_talla_pantalon']},
                 { model: TallaCalzadoModel, attributes:['nombre_talla_calzado']},
-                { model: TipoUsuarioModel, attributes:['nombre_tipo_usuario']},
-                { model: EmpresaModel, attributes:['nombre_empresa', 'nit']}
-            ],
-            attributes:['id_empleado','estado','numero_identificacion','nombres','apellidos','genero','fecha_nacimiento','fecha_expedicion_doc','fecha_ingreso','correo_electronico','direccion','telefono_fijo','celular','num_cuenta','riesgo','contacto_emergencia','tel_contacto_emergencia','src_fotografia',]
+                { model: TipoUsuarioModel, attributes:['nombre_tipo_usuario']},*/
+                { model: EmpresaModel, attributes:['nombre_empresa', 'nit']} 
+            ]
         })
         res.json(item)
     },
@@ -187,7 +186,6 @@ const Controller = {
         if(!errors.isEmpty()){
             return res.status(400).json({ errors:errors.array() })
         }
-
         const {
             id_tipo_identificacion_fk,
             numero_identificacion,
@@ -232,7 +230,6 @@ const Controller = {
             id_empresa_fk,
             src_fotografia,
         } = req.body
-
         await EmpleadoModel.update({
             id_tipo_identificacion_fk,
             numero_identificacion,

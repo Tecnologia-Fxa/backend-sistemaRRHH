@@ -17,7 +17,7 @@ router.get('/:id', EmpleadoController.getOne)
 
 router.post('/', validationEmpleado, EmpleadoController.create)
 
-router.put('/:id', validationEmpleado, EmpleadoController.update)
+router.put('/:id', /* validationEmpleado, */ EmpleadoController.update)
 
 router.put('/inactivar/:id', EmpleadoController.disable) 
 
