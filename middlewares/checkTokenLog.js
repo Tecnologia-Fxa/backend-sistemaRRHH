@@ -21,10 +21,13 @@ const checkToken = (req, res, next) => {
     }
 
     if (payload.expiredAt < moment().unix()) {
-        return  res.status(401).json({error:`El tiempo limite de uso en la pagina a caducado, por favor vuelva a iniciar sesión`});
+        return  res.status(408).json({error:`El tiempo limite de uso en la pagina a caducado, por favor vuelva a iniciar sesión`});
     }
 
-    
+    req.nombreEmpleado = payload.nombreEmpleado
+    req.idEmpleado = payload.idEmpleado
+    req.tipoUsuario = payload.tipoUsuario
+
     next();
 }
 

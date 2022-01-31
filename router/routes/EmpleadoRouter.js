@@ -7,6 +7,8 @@ const { validationEmpleado } = require('../../validations/validationEmpleado')
 
 router.get('/', EmpleadoController.getAll)
 
+router.get('/inactivos', EmpleadoController.getAllInactives)
+
 router.get('/nuevos-empleados', EmpleadoController.listNuevosEmpleados)
 
 router.get('/datos-cartas', EmpleadoController.listDataCard)
@@ -17,7 +19,7 @@ router.get('/:id', EmpleadoController.getOne)
 
 router.post('/', validationEmpleado, EmpleadoController.create)
 
-router.put('/:id', /* validationEmpleado, */ EmpleadoController.update)
+router.put('/:id', validationEmpleado, EmpleadoController.update)
 
 router.put('/inactivar/:id', EmpleadoController.disable) 
 

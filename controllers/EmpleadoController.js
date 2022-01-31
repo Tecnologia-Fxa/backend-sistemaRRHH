@@ -39,7 +39,22 @@ const Controller = {
                 { model: EmpleadoModel, as:'jefe_zona', attributes:['nombres','apellidos']},
                 { model: EmpresaModel, attributes:['nombre_empresa']}
             ],
-            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso']
+            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
+            where:{estado:1}
+        })
+        res.json(items)
+    },
+
+    getAllInactives:async(_req, res)=>{
+        const items = await EmpleadoModel.findAll({
+            include:[
+                { model: CentroCostoModel, attributes:['nombre_centro_costo']},
+                { model: CiudadModel, as:'lugar_trabajo', attributes:['nombre_ciudad']},
+                { model: EmpleadoModel, as:'jefe_zona', attributes:['nombres','apellidos']},
+                { model: EmpresaModel, attributes:['nombre_empresa']}
+            ],
+            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
+            where:{estado:0}
         })
         res.json(items)
     },

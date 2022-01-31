@@ -45,19 +45,27 @@ const CredencialController = {
             if(passwordValidation){
                 const empleado = await EmpleadoModel.findByPk(userValidation.usuario_fk, {attributes:['id_empleado','nombres', 'estado'], include:{model:TipoUsuarioModel, attributes:['nombre_tipo_usuario']}})
                 if(empleado.estado){
-                    res.json({tokenlog:createTokenLog(empleado)})
+                    res.status(201).json({tokenlog:createTokenLog(empleado), tipoUsuario:empleado.tipo_usuario.nombre_tipo_usuario})
                 }else{
-                    res.json('no logueao // inactivo')
+                    res.status(200).json('El usuario se encuentra inactivo')
                 }
             }else{
-                res.json('no logueao')
+                res.status(200).json('Error en usuario y/o contraseña')
             }
         }else{
-            res.json('no logueao')
+            res.status(200).json('Error en usuario y/o contraseña')
         }
 
     },
 
+    InfoTopBar:(req,res)=>{
+        let usuario = {
+            nombre: req.nombreEmpleado,
+            id: req.idEmpleado,
+            Rol: req.tipoUsuario
+        }
+        res.json(usuario)
+    }
     
 }
 
