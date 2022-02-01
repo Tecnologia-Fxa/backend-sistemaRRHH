@@ -62,7 +62,16 @@ const Controller = {
     getOne: async(req,res)=>{
         const item = await EmpleadoModel.findByPk(req.params.id,{
             include:[
-                /* { model: TipoIdentificacionModel, attributes:['nombre_tipo_identificacion']},
+                { model: EmpresaModel, attributes:['nombre_empresa', 'nit']} 
+            ]
+        })
+        res.json(item)
+    },
+
+    getInfoPerfil:async(req,res)=>{
+        const item = await EmpleadoModel.findByPk(req.params.id,{
+            include:[
+                { model: TipoIdentificacionModel, attributes:['nombre_tipo_identificacion']},
                 { model: CiudadModel, as:'lugar_nacimiento', attributes:['nombre_ciudad']},
                 { model: CiudadModel, as:'lugar_exp_doc', attributes:['nombre_ciudad']},
                 { model: NacionalidadModel, attributes:['nombre_nacionalidad']},
@@ -87,11 +96,29 @@ const Controller = {
                 { model: TallaCamisaModel, attributes:['nombre_talla_camisa']},
                 { model: TallaPantalonModel, attributes:['nombre_talla_pantalon']},
                 { model: TallaCalzadoModel, attributes:['nombre_talla_calzado']},
-                { model: TipoUsuarioModel, attributes:['nombre_tipo_usuario']},*/
+                { model: TipoUsuarioModel, attributes:['nombre_tipo_usuario']},
                 { model: EmpresaModel, attributes:['nombre_empresa', 'nit']} 
-            ]
+            ],
+            attributes:['id_empleado','numero_identificacion', 'nombres', 'apellidos', 'genero', 'fecha_nacimiento', 'fecha_expedicion_doc', 'fecha_ingreso', 'correo_electronico', 'direccion', 'telefono_fijo', 'celular', 'num_cuenta', 'riesgo', 'contacto_emergencia', 'tel_contacto_emergencia']
         })
         res.json(item)
+    },
+
+    getAllRoles: async(_req,res)=>{
+        const items = await EmpleadoModel.findAll({attributes:['id_empleado','nombres','numero_identificacion','tipo_usuario_fk']})
+        res.json(items)
+    },
+
+    changeRol: async(req,res)=>{
+        const { idRol } = req.body 
+        await EmpleadoModel.update({
+            tipo_usuario_fk: idRol
+        },{
+            where:{ id_empleado:req.params.id}
+        }).catch(()=>{
+            res.json('Error al cambiar el rol')
+        })
+        res.json("Rol cambiado con exito")
     },
 
     create: async(req,res)=>{
