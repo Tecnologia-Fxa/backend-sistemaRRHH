@@ -378,9 +378,40 @@ const Controller = {
     },
 
     dataEmpleadosEmpresa: async(req,res)=>{
-        const porcentajes = await sequelize.query('SELECT nombre_empresa, (COUNT(*)*100/(SELECT COUNT(*) FROM empleado))porcentaje, COUNT(*) total_empleados FROM empleado INNER JOIN empresa on id_empresa_fk = id_empresa GROUP BY id_empresa ORDER BY porcentaje DESC')
+        const porcentajes = await sequelize.query('SELECT nombre_empresa, (COUNT(*)*100/(SELECT COUNT(*) FROM empleado))porcentaje, COUNT(*) total_empleados FROM empleado INNER JOIN empresa on empresa_fk = id_empresa GROUP BY id_empresa ORDER BY porcentaje DESC')
         res.json(porcentajes[0])
-    }
+    },
     
+    genReporte: async(req,res)=>{
+        const {campos, foraneas, condiciones} = req.body
+        let campo = ''
+        let inners = ''
+        let condicion = ''
+
+        campos.forEach(el => {
+            campo += ` ${el},`
+        });
+
+        foraneas.forEach(el => {
+            campo += ` nombre_${el},`
+            inners += ` inner join ${el} on id_${el} = ${el}_fk`
+        });
+
+        if (condiciones) {
+            condiciones.forEach((el, id) => {
+                if(id===0){
+                    condicion += 'where '
+                }else{
+                    condicion += 'and '
+                }
+                condicion += `${el.campo} like '%${el.valor}%'`
+            });    
+        }
+
+        campo =campo.substring(0, campo.length - 1);
+        const sql = await sequelize.query(`select${campo} from empleado ${inners} ${condicion}`) 
+        res.json(sql[0])
+    }
+
 }
 module.exports = Controller 

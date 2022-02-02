@@ -42,8 +42,8 @@ TipoUsuarioModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'tipo_usuari
 EmpleadoModel.belongsTo(TipoUsuarioModel, { foreignKey:'tipo_usuario_fk' })
 
 //Relacion tipo_identificacion y empleado (foranea en empleado)
-TipoidentificacionModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'id_tipo_identificacion_fk' });
-EmpleadoModel.belongsTo(TipoidentificacionModel, { foreignKey:'id_tipo_identificacion_fk' })
+TipoidentificacionModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'tipo_identificacion_fk' });
+EmpleadoModel.belongsTo(TipoidentificacionModel, { foreignKey:'tipo_identificacion_fk' })
 
 //Relacion centro_costo y empleado (foranea en empleado)
 CentroCostoModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'centro_costo_fk' });
@@ -126,8 +126,8 @@ AuxMovilidadModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'aux_movili
 EmpleadoModel.belongsTo(AuxMovilidadModel, { foreignKey:'aux_movilidad_fk' })
 
 //Relacion empresa y empleado (foranea en empleado)
-EmpresaModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'id_empresa_fk' });
-EmpleadoModel.belongsTo(EmpresaModel, { foreignKey:'id_empresa_fk' })
+EmpresaModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'empresa_fk' });
+EmpleadoModel.belongsTo(EmpresaModel, { foreignKey:'empresa_fk' })
 
 //Relacion empleado y jefe_zona (foranea en empleado)
 EmpleadoModel.hasMany(EmpleadoModel, { foreignKey:'jefe_zona_fk' });

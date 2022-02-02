@@ -25,6 +25,8 @@ router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
 
 router.post('/', validationEmpleado, EmpleadoController.create)
 
+router.post('/generar-reporte', EmpleadoController.genReporte)
+
 router.put('/:id', validationEmpleado, EmpleadoController.update)
 
 router.put('/inactivar/:id', EmpleadoController.disable) 

@@ -16,7 +16,7 @@ EmpleadoModel.init({
         defaultValue: 1
     },
 
-    id_tipo_identificacion_fk:{
+    tipo_identificacion_fk:{
         type: DataTypes.INTEGER,
         allowNull:false
     },
@@ -214,7 +214,7 @@ EmpleadoModel.init({
         allowNull: false
     },
 
-    id_empresa_fk:{
+    empresa_fk:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
