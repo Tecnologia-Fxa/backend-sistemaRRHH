@@ -346,7 +346,7 @@ const Controller = {
     },
 
     listNuevosEmpleados:async(_req, res)=>{
-        const items = await EmpleadoModel.findAll({ attributes:[ 'id_empleado', 'nombres', 'fecha_ingreso'], include:[{model:EmpresaModel,attributes:['nombre_empresa']},{model:CentroCostoModel,attributes:['nombre_centro_costo']}], order:[['fecha_ingreso', 'DESC']], limit:15 })
+        const items = await EmpleadoModel.findAll({ attributes:[ 'id_empleado', 'nombres', 'fecha_ingreso'], include:[{model:EmpresaModel,attributes:['nombre_empresa']},{model:CentroCostoModel,attributes:['nombre_centro_costo']}], order:[['fecha_ingreso', 'DESC']], limit:30 })
         res.json(items)
     },
 
@@ -357,22 +357,24 @@ const Controller = {
             admin: await EmpleadoModel.count({where:{tipo_usuario_fk:2}})
         }
 
-        await sequelize.query('select id_ciudad, nombre_ciudad, COUNT(*) as total_empleados from ciudad INNER JOIN empleado on lugar_trabajo_fk = id_ciudad GROUP BY id_ciudad ORDER BY total_empleados DESC LIMIT 3').then(async(top3)=>{
+        await sequelize.query('select id_ciudad, nombre_ciudad, COUNT(*) as total_empleados from ciudad INNER JOIN empleado on lugar_trabajo_fk = id_ciudad GROUP BY id_ciudad ORDER BY total_empleados DESC').then(async(ciudades)=>{
             const mayorPorCiudad = []
 
-            let item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${top3[0][0].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
+            let item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${ciudades[0][0].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
             mayorPorCiudad.push(item[0][0])
-            item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${top3[0][1].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
+            item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${ciudades[0][1].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
             mayorPorCiudad.push(item[0][0])
-            item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${top3[0][2].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
+            item = await sequelize.query(`select nombre_ciudad, nombre_centro_costo,COUNT(*) total_empleados from ciudad INNER JOIN centro_costo on id_ciudad_fk = id_ciudad INNER JOIN empleado on centro_costo_fk = id_centro_costo WHERE id_ciudad = ${ciudades[0][2].id_ciudad} GROUP BY id_centro_costo ORDER BY total_empleados DESC LIMIT 1`)
             mayorPorCiudad.push(item[0][0])
 
-            top3[0].forEach((el,id) => {
-                mayorPorCiudad[id].total_empleados_ciudad = el.total_empleados
+            ciudades[0].forEach((el,id) => {
+                if(id<2){
+                    mayorPorCiudad[id].total_empleados_ciudad = el.total_empleados
+                }
             });
 
-            res.json({card1:data1, card2:mayorPorCiudad})
- 
+            res.json({card1:data1, card2:mayorPorCiudad, card3:ciudades[0]})
+    
         })
    
     },
