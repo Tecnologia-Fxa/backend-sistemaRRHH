@@ -1,6 +1,7 @@
 const CentroCostoModel = require('../Database/Models/CentroCostoModel')
 const CiudadModel = require('../Database/Models/CiudadModel')
 const { validationResult } = require('express-validator')
+const EmpleadoModel = require('../Database/Models/EmpleadoModel')
 
 const CentroCostoControler = {
 
@@ -10,6 +11,24 @@ const CentroCostoControler = {
                 model:CiudadModel,
                 attributes:['nombre_ciudad']
             },
+            attributes:['id_centro_costo', 'nombre_centro_costo']
+        })
+        res.json(centrosCosto)
+    },
+
+    tableGetAll:async(req,res)=>{
+        const centrosCosto = await CentroCostoModel.findAll({
+            include:[
+                {
+                    model:CiudadModel,
+                    attributes:['nombre_ciudad']
+                },
+                {
+                    model:EmpleadoModel,
+                    as:'empleado',
+                    attributes:[],
+                }
+            ],
             attributes:['id_centro_costo', 'nombre_centro_costo']
         })
         res.json(centrosCosto)

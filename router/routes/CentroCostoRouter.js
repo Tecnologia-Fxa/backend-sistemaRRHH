@@ -7,6 +7,8 @@ const CentroCostoController = require("../../controllers/CentroCostoController")
 
 router.get('/', CentroCostoController.getAll)
 
+router.get('/tableData', CentroCostoController.tableGetAll)
+
 router.get('/:id', CentroCostoController.getOne)
 
 router.post('/', validationCentroCosto, CentroCostoController.create)
