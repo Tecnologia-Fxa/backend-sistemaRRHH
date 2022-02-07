@@ -47,7 +47,7 @@ EmpleadoModel.belongsTo(TipoidentificacionModel, { foreignKey:'tipo_identificaci
 
 //Relacion centro_costo y empleado (foranea en empleado)
 CentroCostoModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'centro_costo_fk' });
-EmpleadoModel.belongsTo(CentroCostoModel, { as:'empleado',foreignKey:'centro_costo_fk' })
+EmpleadoModel.belongsTo(CentroCostoModel, { foreignKey:'centro_costo_fk' })
 
 //Relacion talla_calzado y empleado (foranea en empleado)
 TallaCalzadoModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'talla_calzado_fk' });
