@@ -12,7 +12,7 @@ CentroCostoModel.init({
     },
 
     nombre_centro_costo:{
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(25),
         unique: true,
         allowNull: false
     },

@@ -1,6 +1,6 @@
 const { validateResult } = require('../helpers/validationHelper')
 
-const { validateParam, validateName, validateString, validateLength, validateNumber, validateDate, validateBoolean, validateEmail } = require('./validations')
+const { validateParam, validateName, validateString, validateLength, validateNumber, validateBoolean, validateEmail } = require('./validations')
 
 const validationEmpleado = [
     validateParam('numero_identificacion'),
@@ -15,10 +15,8 @@ const validationEmpleado = [
     validateParam('genero'),
     validateBoolean('genero'),
     validateParam('fecha_nacimiento'),
-    validateDate('fecha_nacimiento'),
     validateParam('lugar_nacimiento_fk'),
     validateParam('fecha_expedicion_doc'),
-    validateDate('fecha_expedicion_doc'),
     validateParam('lugar_exp_doc_fk'),
     validateParam('nacionalidad_fk'),
     validateParam('estado_civil_fk'),
@@ -27,7 +25,6 @@ const validationEmpleado = [
     validateParam('cargo_fk'),
     validateParam('tipo_contrato_fk'),
     validateParam('tipo_tiempo_fk'),
-    validateDate('fecha_ingreso'),
     validateParam('fecha_ingreso'),
     validateParam('jefe_zona_fk'),
     validateParam('estado_contrato_fk'),
@@ -60,12 +57,11 @@ const validationEmpleado = [
     validateName('contacto_emergencia'),
     validateLength('contacto_emergencia', {min:3, max:30}),
     validateParam('tel_contacto_emergencia'),
-    validateNumber('tel_contacto_emergencia'),
-    validateLength('tel_contacto_emergencia', {min:5, max:20}),
+    validateLength('tel_contacto_emergencia', {min:3, max:20}),
     validateParam('talla_camisa_fk'),
     validateParam('talla_pantalon_fk'),
     validateParam('talla_calzado_fk'),
-    validateParam('id_empresa_fk'),
+    validateParam('empresa_fk'),
     (req,res,next)=>validateResult(req,res,next)
 ]
 
