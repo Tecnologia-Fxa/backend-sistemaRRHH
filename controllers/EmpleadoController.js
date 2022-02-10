@@ -123,7 +123,7 @@ const Controller = {
 
     create: async(req,res)=>{
         const {
-            id_tipo_identificacion_fk,
+            tipo_identificacion_fk,
             numero_identificacion,
             nombres,
             apellidos,
@@ -163,7 +163,7 @@ const Controller = {
             talla_camisa_fk,
             talla_pantalon_fk,
             talla_calzado_fk,
-            id_empresa_fk,
+            empresa_fk,
             src_fotografia,
         } = req.body
 
@@ -174,7 +174,7 @@ const Controller = {
         }
         
         await EmpleadoModel.create({
-            id_tipo_identificacion_fk,
+            tipo_identificacion_fk,
             numero_identificacion,
             nombres,
             apellidos,
@@ -214,7 +214,7 @@ const Controller = {
             talla_camisa_fk,
             talla_pantalon_fk,
             talla_calzado_fk,
-            id_empresa_fk,
+            empresa_fk,
             src_fotografia
         }).then(()=>{
             res.json("Creado con exito")
@@ -229,7 +229,7 @@ const Controller = {
             return res.status(400).json({ errors:errors.array() })
         }
         const {
-            id_tipo_identificacion_fk,
+            tipo_identificacion_fk,
             numero_identificacion,
             nombres,
             apellidos,
@@ -269,11 +269,11 @@ const Controller = {
             talla_camisa_fk,
             talla_pantalon_fk,
             talla_calzado_fk,
-            id_empresa_fk,
+            empresa_fk,
             src_fotografia,
         } = req.body
         await EmpleadoModel.update({
-            id_tipo_identificacion_fk,
+            tipo_identificacion_fk,
             numero_identificacion,
             nombres,
             apellidos,
@@ -313,7 +313,7 @@ const Controller = {
             talla_camisa_fk,
             talla_pantalon_fk,
             talla_calzado_fk,
-            id_empresa_fk,
+            empresa_fk,
             src_fotografia
         },{
             where:{ id_empleado:req.params.id}

@@ -6,6 +6,8 @@ const EmpresaControler = require('../../controllers/EmpresaController')
 
 router.get('/', EmpresaControler.getAll)
 
+router.get('/table-data', EmpresaControler.getTableData)
+
 router.get('/:id', EmpresaControler.getOne)
 
 router.post('/', validationEmpresa, EmpresaControler.create)

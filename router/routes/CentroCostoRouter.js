@@ -7,7 +7,7 @@ const CentroCostoController = require("../../controllers/CentroCostoController")
 
 router.get('/', CentroCostoController.getAll)
 
-router.get('/tableData', CentroCostoController.tableGetAll)
+router.get('/table-data', CentroCostoController.tableGetAll)
 
 router.get('/:id', CentroCostoController.getOne)
 

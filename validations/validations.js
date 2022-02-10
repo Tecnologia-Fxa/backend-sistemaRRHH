@@ -24,7 +24,7 @@ const validateNumber = (param) =>{
     return check(param)
             .isFloat()
             .withMessage('Debe ser un numero')
-} 
+}
 
 const validateName = (param) =>{
     return check(param)

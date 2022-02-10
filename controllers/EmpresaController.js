@@ -1,5 +1,6 @@
 const EmpresaModel = require('../Database/Models/EmpresaModel')
 const { validationResult } = require('express-validator')
+const sequelize = require('../Database/configBD')
 
 const EmpresaControler = {
 
@@ -13,19 +14,24 @@ const EmpresaControler = {
         res.json(empresa)
     },
 
+    getTableData: async(req,res)=>{
+        const empresas = await sequelize.query('select id_empresa,nombre_empresa,nit, COUNT(id_empleado)empleados from empresa left join empleado on empresa_fk = id_empresa group by id_empresa,nombre_empresa,nit')
+        res.json(empresas[0])
+    },
+
     create: async(req,res)=>{
-        const {nombre, nit} = req.body
+        const {nombre_empresa, nit} = req.body
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.status(400).json({ errors:errors.array() })
         }
         await EmpresaModel.create({
-            nombre_empresa: nombre,
+            nombre_empresa: nombre_empresa,
             nit: nit
         }).then(()=>{
-            res.json("Creado con exito")
+            res.status(201).json("Creado con exito")
         }).catch(()=>{
-            res.json('Error al crear')
+            res.json('Error al crear, puede haber una empresa con el mismo nombre')
         })
     },
 
@@ -35,16 +41,16 @@ const EmpresaControler = {
             return res.status(400).json({ errors:errors.array() })
         }
 
-        const {nombre, nit} = req.body
+        const {nombre_empresa, nit} = req.body
         await EmpresaModel.update({
-            nombre_empresa: nombre,
+            nombre_empresa: nombre_empresa,
             nit:nit
         },{
             where:{ id_empresa:req.params.id}
         }).catch(()=>{
             res.json('Error al actualizar')
         })
-        res.json("Actualizado con exito")
+        res.status(201).json("Actualizado con exito")
     },
 
     delete: async(req,res)=>{
