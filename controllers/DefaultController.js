@@ -1,8 +1,8 @@
-const defaultController=( model, id_def, nombre_def)=>{
+const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
 
     model = require(`../Database/Models/${model}`)
     const { validationResult } = require('express-validator')
-
+    const sequelize = require('../Database/configBD')
     const Controller = {
 
         getAll:async(_req, res)=>{
@@ -10,9 +10,14 @@ const defaultController=( model, id_def, nombre_def)=>{
             res.json(items)
         },
 
-    getOne: async(req,res)=>{
+        getOne: async(req,res)=>{
             const item = await model.findByPk(req.params.id)
             res.json(item)
+        },
+
+        getTableData:async(req,res)=>{
+            const items = await sequelize.query(`select ${id_def}, ${nombre_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${nombre_def}`)
+            res.json(items[0])
         },
 
         create: async(req,res)=>{
@@ -24,7 +29,7 @@ const defaultController=( model, id_def, nombre_def)=>{
             await model.create({
                 [nombre_def]: nombre
             }).then(()=>{
-                res.json("Creado con exito")
+                res.status(201).json("Creado con exito")
             }).catch(()=>{
                 res.json('Error al crear')
             })
@@ -44,7 +49,7 @@ const defaultController=( model, id_def, nombre_def)=>{
             }).catch(()=>{
                 res.json('Error al actualizar')
             })
-            res.json("Actualizado con exito")
+            res.status(201).json("Actualizado con exito")
         },
 
         delete: async(req,res)=>{
