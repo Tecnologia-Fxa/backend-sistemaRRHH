@@ -4,6 +4,7 @@ const checkLogin = require('../middlewares/checkTokenLog')
 
 const DefaultRouter = require('./routes/DefaultRouter')
 const DefaultRouter2 = require('./routes/DefaultRouter2')
+const DefaultRouter3 = require('./routes/DefaultRouter3')
 
 router.use('/empresa', checkLogin,require('./routes/EmpresaRouter'))
 
@@ -54,10 +55,10 @@ router.use('/caja-compensacion', checkLogin, DefaultRouter('CajaCompensacionMode
 
 router.use('/cesantias', checkLogin, DefaultRouter('CesantiasModel', 'id_cesantias', 'nombre_cesantias', 'cesantias'))
 
-router.use('/talla-camisa', checkLogin, DefaultRouter('TallaCamisaModel', 'id_talla_camisa', 'nombre_talla_camisa', 'talla_camisa'))
+router.use('/talla-camisa', checkLogin, DefaultRouter3('TallaCamisaModel', 'id_talla_camisa', 'nombre_talla_camisa', 'talla_camisa'))
 
-router.use('/talla-pantalon', checkLogin, DefaultRouter('TallaPantalonModel', 'id_talla_pantalon', 'nombre_talla_pantalon', 'talla_pantalon'))
+router.use('/talla-pantalon', checkLogin, DefaultRouter3('TallaPantalonModel', 'id_talla_pantalon', 'nombre_talla_pantalon', 'talla_pantalon'))
 
-router.use('/talla-calzado', checkLogin, DefaultRouter('TallaCalzadoModel', 'id_talla_calzado', 'nombre_talla_calzado', 'talla_calzado'))
+router.use('/talla-calzado', checkLogin, DefaultRouter3('TallaCalzadoModel', 'id_talla_calzado', 'nombre_talla_calzado', 'talla_calzado'))
 
 module.exports = router

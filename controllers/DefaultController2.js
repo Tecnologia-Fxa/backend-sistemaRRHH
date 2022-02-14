@@ -51,7 +51,7 @@ const defaultController=( model, id_def, monto_def)=>{
             await model.destroy({
                 where:{ [id_def]:req.params.id}
             }).catch(err=>{
-                res.json({err:"Error al borrar el producto"});
+                res.json({err:"Error al borrar el registro"});
             });
             res.json("Borrado con exito")
         }

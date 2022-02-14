@@ -1,8 +1,10 @@
-const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
+const sequelize = require('../Database/configBD')
+
+const defaultController=( model, id_def, talla_def, name, fk_emp = name)=>{
 
     model = require(`../Database/Models/${model}`)
     const { validationResult } = require('express-validator')
-    const sequelize = require('../Database/configBD')
+
     const Controller = {
 
         getAll:async(_req, res)=>{
@@ -15,19 +17,19 @@ const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
             res.json(item)
         },
 
-        getTableData:async(req,res)=>{
-            const items = await sequelize.query(`select ${id_def}, ${nombre_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${nombre_def}`)
+        getTableData:async(_req,res)=>{
+            const items = await sequelize.query(`select ${id_def}, ${talla_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${talla_def}`)
             res.json(items[0])
         },
 
         create: async(req,res)=>{
-            const {nombre} = req.body
+            const {talla} = req.body
             const errors = validationResult(req)
             if(!errors.isEmpty()){
                 return res.status(400).json({ errors:errors.array() })
             }
             await model.create({
-                [nombre_def]: nombre
+                [talla_def]: talla
             }).then(()=>{
                 res.status(201).json("Creado con exito")
             }).catch(()=>{
@@ -41,9 +43,9 @@ const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
                 return res.status(400).json({ errors:errors.array() })
             }
 
-            const {nombre} = req.body
+            const {talla} = req.body
             await model.update({
-                [nombre_def]: nombre
+                [talla_def]: talla
             },{
                 where:{ [id_def]:req.params.id}
             }).catch(()=>{
