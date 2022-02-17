@@ -16,7 +16,7 @@ const jwt = require('jwt-simple')
 const CredencialController = {
 
     //!TEMPORAL 
-    createCredential:async(req,res)=>{
+    createCredential:async(_req,res)=>{
 
         const empleados = await EmpleadoModel.findAll({attributes:['id_empleado', 'numero_identificacion'],order:['id_empleado']})
         empleados.forEach(async(el) => {

@@ -19,7 +19,7 @@ router.use('/credencial', require('./routes/CredencialesRouter'))
 
 router.use('/tipo-identificacion', checkLogin, DefaultRouter('TipoIdentificacionModel', 'id_tipo_identificacion', 'nombre_tipo_identificacion', 'tipo_identificacion'))
 
-router.use('/ciudad', checkLogin, DefaultRouter('CiudadModel', 'id_ciudad', 'nombre_ciudad', 'ciudad', 'lugar_trabajo'))
+router.use('/ciudad', checkLogin, DefaultRouter('CiudadModel', 'id_ciudad', 'nombre_ciudad', 'ciudad', 'ciudad'))
 
 router.use('/nacionalidad', checkLogin, DefaultRouter('NacionalidadModel', 'id_nacionalidad', 'nombre_nacionalidad', 'nacionalidad'))
 
@@ -39,7 +39,7 @@ router.use('/estado-contrato', checkLogin, DefaultRouter('EstadoContratoModel', 
 
 router.use('/salario', DefaultRouter2('SalarioModel', 'id_salario', 'monto_salario', 'salario'))
 
-router.use('/aux-movilidad', DefaultRouter2('AuxMovilidadModel', 'id_aux_movilidad', 'monto_aux_movilidad'))
+router.use('/aux-movilidad', DefaultRouter2('AuxMovilidadModel', 'id_aux_movilidad', 'monto_aux_movilidad', 'aux_movilidad'))
 
 router.use('/tipo-cuenta', checkLogin, DefaultRouter('TipoCuentaModel', 'id_tipo_cuenta', 'nombre_tipo_cuenta', 'tipo_cuenta'))
 

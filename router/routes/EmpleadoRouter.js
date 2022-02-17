@@ -23,7 +23,9 @@ router.get('/:id', EmpleadoController.getOne)
 
 router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
 
-router.post('/', validationEmpleado, EmpleadoController.create)
+router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
+
+router.get('/default/certificado-lab', EmpleadoController.getInfoCertiLab)
 
 router.post('/generar-reporte', EmpleadoController.genReporte)
 

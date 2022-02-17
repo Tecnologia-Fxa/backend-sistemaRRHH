@@ -1,5 +1,7 @@
 const EmpleadoModel = require('../Database/Models/EmpleadoModel')
 
+const bcrypt = require('bcrypt')
+
 const TipoIdentificacionModel = require('../Database/Models/TipoIdentificacionModel')
 const CiudadModel = require('../Database/Models/CiudadModel')
 const NacionalidadModel = require('../Database/Models/NacionalidadModel')
@@ -28,6 +30,7 @@ const { validationResult } = require('express-validator')
 const EmpresaModel = require('../Database/Models/EmpresaModel')
 const sequelize = require('../Database/configBD')
 const res = require('express/lib/response')
+const CredencialModel = require('../Database/Models/CredencialModel')
 
 const Controller = {
 
@@ -104,6 +107,31 @@ const Controller = {
         res.json(item)
     },
 
+    getInfoCertiLab:async(req,res)=>{
+        const info = await EmpleadoModel.findByPk(req.idEmpleado,{
+            attributes:['nombres', 'apellidos', 'numero_identificacion', 'fecha_ingreso' ],
+            include:[
+                {   
+                    model:EmpresaModel,
+                    attributes:['nombre_empresa','nit']
+                },{
+                    model:TipoIdentificacionModel,
+                    attributes:['nombre_tipo_identificacion']
+                },{
+                    model:TipoContratoModel,
+                    attributes:['nombre_tipo_contrato']
+                },{
+                    model:CargoModel,
+                    attributes:['nombre_cargo']
+                },{
+                    model:SalarioModel,
+                    attributes:['monto_salario']
+                }
+            ]
+        })
+        res.json(info)
+    },
+
     getAllRoles: async(_req,res)=>{
         const items = await EmpleadoModel.findAll({attributes:['id_empleado','nombres','numero_identificacion','tipo_usuario_fk']})
         res.json(items)
@@ -173,7 +201,9 @@ const Controller = {
             return res.status(400).json({ errors:errors.array() })
         }
         
-        await EmpleadoModel.create({
+        const resp = [false,false]
+ 
+        const empleadoCreado = await EmpleadoModel.create({
             tipo_identificacion_fk,
             numero_identificacion,
             nombres,
@@ -216,11 +246,22 @@ const Controller = {
             talla_calzado_fk,
             empresa_fk,
             src_fotografia
-        }).then(()=>{
-            res.json("Creado con exito")
         }).catch((err)=>{
             res.json({error:'Error al crear', err:err})
         })
+
+        let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
+
+        await CredencialModel.create({
+            nombre_usuario: empleadoCreado.numero_identificacion,
+            contraseña: contra,
+            usuario_fk: empleadoCreado.id_empleado
+        }).catch(err=>{
+            res.json({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
+        })
+
+        res.json("Creado con exito")
+
     },
 
     update: async(req, res)=>{

@@ -16,8 +16,36 @@ const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
         },
 
         getTableData:async(req,res)=>{
-            const items = await sequelize.query(`select ${id_def}, ${nombre_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${nombre_def}`)
-            res.json(items[0])
+            if(fk_emp==='ciudad'){
+                let items = await sequelize.query(`select id_ciudad, nombre_ciudad, COUNT(id_empleado)empleados from ciudad LEFT JOIN empleado on lugar_nacimiento_fk = id_ciudad GROUP BY id_ciudad, nombre_ciudad`)
+                let items2 = await sequelize.query(`select id_ciudad, COUNT(id_empleado)empleados from ciudad LEFT JOIN empleado on lugar_trabajo_fk = id_ciudad GROUP BY id_ciudad`)
+                items2=items2[0]
+                let items3 = await sequelize.query(`select id_ciudad, COUNT(id_empleado)empleados from ciudad LEFT JOIN empleado on lugar_exp_doc_fk = id_ciudad GROUP BY id_ciudad`)
+                items3=items3[0]
+                let items4 = await sequelize.query(`select id_ciudad, COUNT(id_centro_costo)centros_costo from ciudad LEFT JOIN centro_costo on id_ciudad_fk = id_ciudad GROUP BY id_ciudad`)
+                items4=items4[0]
+
+                let ciudades = []
+
+                items[0].forEach((el, id) => {
+                    let ciudad = {
+                        id_ciudad:el.id_ciudad,
+                        nombre_ciudad:el.nombre_ciudad,
+                        empleados_lugar_nacimiento: el.empleados,
+                        empleados_lugar_trabajo:items2[id].empleados,
+                        empleados_lugar_exp_doc:items3[id].empleados,
+                        lugar_centros_costo:items4[id].centros_costo
+                    }
+                    ciudades.push(ciudad)
+                });
+
+                res.json(ciudades)
+                
+            }else{
+                const items = await sequelize.query(`select ${id_def}, ${nombre_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${nombre_def}`)
+                res.json(items[0])
+            }
+
         },
 
         create: async(req,res)=>{
