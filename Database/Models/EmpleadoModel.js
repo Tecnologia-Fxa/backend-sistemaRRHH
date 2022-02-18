@@ -224,8 +224,10 @@ EmpleadoModel.init({
     tipo_usuario_fk:{
         type: DataTypes.INTEGER,
         defaultValue: 3
-    }
+    },
 
+    fecha_gen_certificado: DataTypes.DATEONLY
+    
 },{
     sequelize,
     modelName: 'empleado',

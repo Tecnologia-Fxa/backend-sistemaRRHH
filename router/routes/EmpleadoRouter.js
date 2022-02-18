@@ -27,6 +27,10 @@ router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
 
 router.get('/default/certificado-lab', EmpleadoController.getInfoCertiLab)
 
+router.get('/default/data-emp-docs', EmpleadoController.getDataEmpDocs)
+
+router.put('/certificado-lab-new-date/:id', EmpleadoController.updateDateGenCerti)
+
 router.post('/generar-reporte', EmpleadoController.genReporte)
 
 router.put('/:id', validationEmpleado, EmpleadoController.update)

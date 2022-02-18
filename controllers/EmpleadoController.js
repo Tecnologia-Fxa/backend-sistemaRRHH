@@ -31,6 +31,8 @@ const EmpresaModel = require('../Database/Models/EmpresaModel')
 const sequelize = require('../Database/configBD')
 const res = require('express/lib/response')
 const CredencialModel = require('../Database/Models/CredencialModel')
+const TipoDocumentoModel = require('../Database/Models/TipoDocumentoModel')
+const TipoidentificacionModel = require('../Database/Models/TipoIdentificacionModel')
 
 const Controller = {
 
@@ -107,9 +109,21 @@ const Controller = {
         res.json(item)
     },
 
+    getDataEmpDocs:async(req,res)=>{
+        const item = await EmpleadoModel.findByPk(req.idEmpleado,{
+            attributes:['nombres','apellidos','numero_identificacion','correo_electronico','celular'],
+            include:[
+                {model:TipoIdentificacionModel,attributes:['nombre_tipo_identificacion']},
+                {model:EmpresaModel,attributes:['nombre_empresa']},
+                {model:CargoModel,attributes:['nombre_cargo']},
+                {model:CentroCostoModel,attributes:['nombre_centro_costo']}
+            ]})
+        res.json(item)
+    },
+
     getInfoCertiLab:async(req,res)=>{
         const info = await EmpleadoModel.findByPk(req.idEmpleado,{
-            attributes:['nombres', 'apellidos', 'numero_identificacion', 'fecha_ingreso' ],
+            attributes:['id_empleado','nombres', 'apellidos', 'numero_identificacion', 'fecha_ingreso', 'fecha_gen_certificado' ],
             include:[
                 {   
                     model:EmpresaModel,
@@ -130,6 +144,13 @@ const Controller = {
             ]
         })
         res.json(info)
+    },
+
+    updateDateGenCerti:async(req,res)=>{
+        const { id } = req.params
+        await EmpleadoModel.update({fecha_gen_certificado:new Date()},{where:{id_empleado:id}}).then(()=>{
+            res.json("Fecha Actualiada con Exito")
+        })
     },
 
     getAllRoles: async(_req,res)=>{
