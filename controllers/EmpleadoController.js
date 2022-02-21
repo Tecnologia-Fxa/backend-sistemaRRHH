@@ -33,6 +33,7 @@ const res = require('express/lib/response')
 const CredencialModel = require('../Database/Models/CredencialModel')
 const TipoDocumentoModel = require('../Database/Models/TipoDocumentoModel')
 const TipoidentificacionModel = require('../Database/Models/TipoIdentificacionModel')
+const { monthsShort } = require('moment')
 
 const Controller = {
 
@@ -447,7 +448,7 @@ const Controller = {
     },
     
     genReporte: async(req,res)=>{
-        const {campos, foraneas, condiciones} = req.body
+        const {campos, foraneas, ciudad, condiciones, montos} = req.body
         let campo = ''
         let inners = ''
         let condicion = ''
@@ -457,7 +458,17 @@ const Controller = {
         });
 
         foraneas.forEach(el => {
-            campo += ` nombre_${el},`
+            campo += Array.isArray(el)?` nombre_${el[1]},`:` nombre_${el},`
+            inners += Array.isArray(el)?` inner join ${el[0]} on id_${el[1]} = ${el[1]}_fk`:` inner join ${el} on id_${el} = ${el}_fk`
+        });
+
+        ciudad.forEach(el => {
+            campo += ` ${el}.nombre_ciudad ${el},`
+            inners += ` left join ciudad ${el} on ${el}.id_ciudad = ${el}_fk`
+        });
+
+        montos.forEach(el => {
+            campo += ` monto_${el},`
             inners += ` inner join ${el} on id_${el} = ${el}_fk`
         });
 

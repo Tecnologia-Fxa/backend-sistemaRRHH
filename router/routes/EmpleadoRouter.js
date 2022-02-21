@@ -33,6 +33,8 @@ router.put('/certificado-lab-new-date/:id', EmpleadoController.updateDateGenCert
 
 router.post('/generar-reporte', EmpleadoController.genReporte)
 
+router.post('/', validationEmpleado, EmpleadoController.create)
+
 router.put('/:id', validationEmpleado, EmpleadoController.update)
 
 router.put('/inactivar/:id', EmpleadoController.disable) 
