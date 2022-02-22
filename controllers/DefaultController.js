@@ -41,6 +41,9 @@ const defaultController=( model, id_def, nombre_def, name, fk_emp = name)=>{
 
                 res.json(ciudades)
                 
+            }else if(fk_emp==='tipo_documento'){
+                const items = await sequelize.query(`select ${id_def},${nombre_def},COUNT(id_tipo_documento_fk)empleados from ${name} LEFT JOIN documentos_faltantes on id_tipo_documento_fk = id_tipo_documento group by ${id_def},${nombre_def}`)
+                res.json(items[0])
             }else{
                 const items = await sequelize.query(`select ${id_def}, ${nombre_def}, COUNT(id_empleado)empleados from ${name} LEFT JOIN empleado on ${fk_emp}_fk = ${id_def} GROUP BY ${id_def}, ${nombre_def}`)
                 res.json(items[0])

@@ -27,7 +27,6 @@ const SalarioModel = require('./Models/SalarioModel');
 const EmpresaModel = require('./Models/EmpresaModel');
 const AuxMovilidadModel = require('./Models/AuxMovilidadModel');
 const DocumentosFaltantesModel = require('./Models/DocumentosFaltantesModel');
-const EmpleadoDocumentosFaltantesModel = require('./Models/EmpleadoDocumentosFaltantesModel');
 
 //Relaciones 1 a 1
 
@@ -157,10 +156,10 @@ DocumentoModel.belongsTo(EmpleadoModel, { foreignKey:'empleado_fk' })
 CiudadModel.hasMany(CentroCostoModel, { as:'centro_costo', foreignKey:'id_ciudad_fk' });
 CentroCostoModel.belongsTo(CiudadModel, { foreignKey:'id_ciudad_fk' })
 
-//Relacion documentos_faltantes y empleado_documentosfaltantes (foranea en empleado_documentosfaltantes)
-DocumentosFaltantesModel.hasMany(EmpleadoDocumentosFaltantesModel, { as:'empleado_documentosfaltantes', foreignKey:'id_documentos_faltantes_fk' });
-EmpleadoDocumentosFaltantesModel.belongsTo(DocumentosFaltantesModel, { foreignKey:'id_documentos_faltantes_fk' })
+//Relacion documentos_faltantes y tipo_documento (foranea en documentos_faltantes)
+TipoDocumentoModel.hasMany(DocumentosFaltantesModel, { as:'documentos_faltantes', foreignKey:'id_tipo_documento_fk' });
+DocumentosFaltantesModel.belongsTo(TipoDocumentoModel, { foreignKey:'id_tipo_documento_fk' })
 
-//Relacion documentos_faltantes y empleado_documentosfaltantes (foranea en empleado_documentosfaltantes)
-EmpleadoModel.hasMany(EmpleadoDocumentosFaltantesModel, { as:'empleado_documentosfaltantes', foreignKey:'id_empleado_fk' });
-EmpleadoDocumentosFaltantesModel.belongsTo(EmpleadoModel, { foreignKey:'id_empleado_fk' })
+//Relacion documentos_faltantes y empleado (foranea en documentos_faltantes)
+EmpleadoModel.hasMany(DocumentosFaltantesModel, { as:'documentos_faltantes', foreignKey:'id_empleado_fk' });
+DocumentosFaltantesModel.belongsTo(EmpleadoModel, { foreignKey:'id_empleado_fk' })

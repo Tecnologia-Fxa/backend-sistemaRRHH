@@ -448,29 +448,34 @@ const Controller = {
     },
     
     genReporte: async(req,res)=>{
-        const {campos, foraneas, ciudad, condiciones, montos} = req.body
+        const {campos, foraneas, ciudad, condiciones, montos, jefe_zona} = req.body
         let campo = ''
         let inners = ''
         let condicion = ''
 
         campos.forEach(el => {
-            campo += ` ${el},`
+            campo += ` emp1.${el},`
         });
 
         foraneas.forEach(el => {
-            campo += Array.isArray(el)?` nombre_${el[1]},`:` nombre_${el},`
-            inners += Array.isArray(el)?` inner join ${el[0]} on id_${el[1]} = ${el[1]}_fk`:` inner join ${el} on id_${el} = ${el}_fk`
+            campo += Array.isArray(el)?` nombre_${el[2]} ${el[2]},`:` nombre_${el} ${el},`
+            inners += Array.isArray(el)?` inner join ${el[0]} on id_${el[2]} = emp1.${el[1]}_fk`:` inner join ${el} on id_${el} = emp1.${el}_fk`
         });
 
         ciudad.forEach(el => {
             campo += ` ${el}.nombre_ciudad ${el},`
-            inners += ` left join ciudad ${el} on ${el}.id_ciudad = ${el}_fk`
+            inners += ` left join ciudad ${el} on ${el}.id_ciudad = emp1.${el}_fk`
         });
 
         montos.forEach(el => {
-            campo += ` monto_${el},`
-            inners += ` inner join ${el} on id_${el} = ${el}_fk`
+            campo += ` monto_${el} ${el},`
+            inners += ` inner join ${el} on id_${el} = emp1.${el}_fk`
         });
+
+        if(jefe_zona===true) {
+            campo += ` emp2.nombres jefe_zona,`
+            inners += ` inner join empleado emp2 on emp2.id_empleado = emp1.jefe_zona_fk`
+        }
 
         if (condiciones) {
             condiciones.forEach((el, id) => {
@@ -479,12 +484,12 @@ const Controller = {
                 }else{
                     condicion += 'and '
                 }
-                condicion += `${el.campo} like '%${el.valor}%'`
+                condicion += `emp1.${el.campo}_fk = '%${el.valor}%'`
             });    
         }
 
         campo =campo.substring(0, campo.length - 1);
-        const sql = await sequelize.query(`select${campo} from empleado ${inners} ${condicion}`) 
+        const sql = await sequelize.query(`select${campo} from empleado emp1 ${inners} ${condicion}`) 
         res.json(sql[0])
     }
 

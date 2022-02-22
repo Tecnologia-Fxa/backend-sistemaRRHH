@@ -5,15 +5,15 @@ class DocumentosFaltantesModel extends Model {};
 
 DocumentosFaltantesModel.init({
 
-    id_documentos_faltantes:{
+    id_empleado_fk:{
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        allowNull: false
     },
 
-    nombre_documentos_faltantes:{
-        type: DataTypes.STRING(25),
-        unique: true,
+    id_tipo_documento_fk:{
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false
     }
 
