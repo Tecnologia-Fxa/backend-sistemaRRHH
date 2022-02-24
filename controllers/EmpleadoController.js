@@ -111,7 +111,7 @@ const Controller = {
     },
 
     getDataEmpDocs:async(req,res)=>{
-        const item = await EmpleadoModel.findByPk(req.idEmpleado,{
+        const item = await EmpleadoModel.findByPk(req.params.id,{
             attributes:['nombres','apellidos','numero_identificacion','correo_electronico','celular'],
             include:[
                 {model:TipoIdentificacionModel,attributes:['nombre_tipo_identificacion']},
@@ -482,9 +482,9 @@ const Controller = {
                 if(id===0){
                     condicion += 'where '
                 }else{
-                    condicion += 'and '
+                    condicion += ' and '
                 }
-                condicion += `emp1.${el.campo}_fk = '%${el.valor}%'`
+                condicion += `emp1.${el.campo}_fk = ${el.valor}`
             });    
         }
 
