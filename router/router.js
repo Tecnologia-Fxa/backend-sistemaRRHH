@@ -14,6 +14,7 @@ router.use('/centro-costo', checkLogin, require('./routes/CentroCostoRouter'))
 
 router.use('/credencial', require('./routes/CredencialesRouter'))
 
+router.use('/documentos-faltantes', checkLogin, require('./routes/DocumentosFaltantesRouter'))
 
 //*Default Models
 

@@ -1,7 +1,11 @@
 const router = require("express").Router();
 
-const EmpresaControler = require('../../controllers/EmpresaController')
+const DocumentosFaltantesController = require('../../controllers/DocumentosFaltantesController')
 
-router.post('/', EmpresaControler.create)
+router.post('/', DocumentosFaltantesController.create)
+
+router.get('/:id', DocumentosFaltantesController.getByIdEmp)
+
+router.post('/delete-doc', DocumentosFaltantesController.deleteDoc)
 
 module.exports = router
