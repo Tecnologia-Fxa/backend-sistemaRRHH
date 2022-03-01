@@ -42,7 +42,7 @@ const Controller = {
             include:[
                 { model: CentroCostoModel, attributes:['nombre_centro_costo']},
                 { model: CiudadModel, as:'lugar_trabajo', attributes:['nombre_ciudad']},
-                { model: EmpleadoModel, as:'jefe_zona', attributes:['nombres','apellidos']},
+                { model: EmpleadoModel, as:'jefe_directo', attributes:['nombres','apellidos']},
                 { model: EmpresaModel, attributes:['nombre_empresa']}
             ],
             attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
@@ -56,7 +56,7 @@ const Controller = {
             include:[
                 { model: CentroCostoModel, attributes:['nombre_centro_costo']},
                 { model: CiudadModel, as:'lugar_trabajo', attributes:['nombre_ciudad']},
-                { model: EmpleadoModel, as:'jefe_zona', attributes:['nombres','apellidos']},
+                { model: EmpleadoModel, as:'jefe_directo', attributes:['nombres','apellidos']},
                 { model: EmpresaModel, attributes:['nombre_empresa']}
             ],
             attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
@@ -87,7 +87,7 @@ const Controller = {
                 { model: CargoModel, attributes:['nombre_cargo']},
                 { model: TipoContratoModel, attributes:['nombre_tipo_contrato']},
                 { model: TiempoModel, attributes:['nombre_tiempo']},
-                { model: EmpleadoModel, as:'jefe_zona', attributes:['nombres','apellidos']},
+                { model: EmpleadoModel, as:'jefe_directo', attributes:['nombres','apellidos']},
                 { model: EstadoContratoModel, attributes:['nombre_estado_contrato']},
                 { model: SalarioModel, attributes:['monto_salario']},
                 { model: AuxMovilidadModel, attributes:['monto_aux_movilidad']},
@@ -190,7 +190,7 @@ const Controller = {
             tipo_contrato_fk,
             tipo_tiempo_fk,
             fecha_ingreso,
-            jefe_zona_fk,
+            jefe_directo_fk,
             estado_contrato_fk,
             salario_fk,
             aux_movilidad_fk,
@@ -243,7 +243,7 @@ const Controller = {
             tipo_contrato_fk,
             tipo_tiempo_fk,
             fecha_ingreso,
-            jefe_zona_fk,
+            jefe_directo_fk,
             estado_contrato_fk,
             salario_fk,
             aux_movilidad_fk,
@@ -309,7 +309,7 @@ const Controller = {
             tipo_contrato_fk,
             tipo_tiempo_fk,
             fecha_ingreso,
-            jefe_zona_fk,
+            jefe_directo_fk,
             estado_contrato_fk,
             salario_fk,
             aux_movilidad_fk,
@@ -353,7 +353,7 @@ const Controller = {
             tipo_contrato_fk,
             tipo_tiempo_fk,
             fecha_ingreso,
-            jefe_zona_fk,
+            jefe_directo_fk,
             estado_contrato_fk,
             salario_fk,
             aux_movilidad_fk,
@@ -448,7 +448,7 @@ const Controller = {
     },
     
     genReporte: async(req,res)=>{
-        const {campos, foraneas, ciudad, condiciones, montos, jefe_zona} = req.body
+        const {campos, foraneas, ciudad, condiciones, montos, jefe_directo} = req.body
         let campo = ''
         let inners = ''
         let condicion = ''
@@ -472,9 +472,9 @@ const Controller = {
             inners += ` inner join ${el} on id_${el} = emp1.${el}_fk`
         });
 
-        if(jefe_zona===true) {
-            campo += ` emp2.nombres jefe_zona,`
-            inners += ` inner join empleado emp2 on emp2.id_empleado = emp1.jefe_zona_fk`
+        if(jefe_directo===true) {
+            campo += ` emp2.nombres jefe_directo,`
+            inners += ` inner join empleado emp2 on emp2.id_empleado = emp1.jefe_directo_fk`
         }
 
         if (condiciones) {

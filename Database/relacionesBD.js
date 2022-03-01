@@ -128,9 +128,9 @@ EmpleadoModel.belongsTo(AuxMovilidadModel, { foreignKey:'aux_movilidad_fk' })
 EmpresaModel.hasMany(EmpleadoModel, { as:'empleado', foreignKey:'empresa_fk' });
 EmpleadoModel.belongsTo(EmpresaModel, { foreignKey:'empresa_fk' })
 
-//Relacion empleado y jefe_zona (foranea en empleado)
-EmpleadoModel.hasMany(EmpleadoModel, { foreignKey:'jefe_zona_fk' });
-EmpleadoModel.belongsTo(EmpleadoModel, { as:'jefe_zona', foreignKey:'jefe_zona_fk' })
+//Relacion empleado y jefe_directo (foranea en empleado)
+EmpleadoModel.hasMany(EmpleadoModel, { foreignKey:'jefe_directo_fk' });
+EmpleadoModel.belongsTo(EmpleadoModel, { as:'jefe_directo', foreignKey:'jefe_directo_fk' })
 
 //Relacion ciudad y empleado (foranea en empleado) => lugar Nacimiento
 CiudadModel.hasMany(EmpleadoModel, { as:'empleado_lugar_nacimiento', foreignKey:'lugar_nacimiento_fk' });

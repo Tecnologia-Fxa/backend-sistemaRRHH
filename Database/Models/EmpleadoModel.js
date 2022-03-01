@@ -102,7 +102,7 @@ EmpleadoModel.init({
         allowNull: false
     },
 
-    jefe_zona_fk:DataTypes.INTEGER,
+    jefe_directo_fk:DataTypes.INTEGER,
 
     estado_contrato_fk:{
         type: DataTypes.INTEGER,
