@@ -226,6 +226,11 @@ EmpleadoModel.init({
         defaultValue: 3
     },
 
+    empelados_a_cargo:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:0
+    },
+
     fecha_gen_certificado: DataTypes.DATEONLY
     
 },{

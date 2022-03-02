@@ -18,7 +18,7 @@ app.use('/', require('./router/router'))
 app.listen(PORT, () =>{
     console.log(`El proyecto a sido arrancado en http://localhost:${PORT}`);
 
-    sequelize.sync( {force: false} ).then(()=>{
+    sequelize.sync( {force: true} ).then(()=>{
         console.log('Conexion a la bd exitosa');
     }).catch(error=>{
         console.log('Error al conectar la bd: ' + error)
