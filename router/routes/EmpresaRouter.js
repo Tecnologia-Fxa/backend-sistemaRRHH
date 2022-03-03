@@ -2,19 +2,19 @@ const router = require("express").Router();
 
 const { validationEmpresa} = require('../../validations/validationsEmpresa')
 
-const EmpresaControler = require('../../controllers/EmpresaController')
+const EmpresaController = require('../../controllers/EmpresaController')
 
-router.get('/', EmpresaControler.getAll)
+router.get('/', EmpresaController.getAll)
 
-router.get('/table-data', EmpresaControler.getTableData)
+router.get('/table-data', EmpresaController.getTableData)
 
-router.get('/:id', EmpresaControler.getOne)
+router.get('/:id', EmpresaController.getOne)
 
-router.post('/', validationEmpresa, EmpresaControler.create)
+router.post('/', validationEmpresa, EmpresaController.create)
 
-router.put('/:id', validationEmpresa, EmpresaControler.update)
+router.put('/:id', validationEmpresa, EmpresaController.update)
 
-router.delete('/:id', EmpresaControler.delete)
+router.delete('/:id', EmpresaController.delete)
 
 
 module.exports = router

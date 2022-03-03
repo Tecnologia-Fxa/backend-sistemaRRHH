@@ -16,6 +16,8 @@ router.use('/credencial', require('./routes/CredencialesRouter'))
 
 router.use('/documentos-faltantes', checkLogin, require('./routes/DocumentosFaltantesRouter'))
 
+router.use('/jefe-directo', checkLogin, require('./routes/JefeDirectoRouter'))
+
 //*Default Models
 
 router.use('/tipo-identificacion', checkLogin, DefaultRouter('TipoIdentificacionModel', 'id_tipo_identificacion', 'nombre_tipo_identificacion', 'tipo_identificacion'))

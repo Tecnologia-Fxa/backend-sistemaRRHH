@@ -2,7 +2,7 @@ const DocumentosFaltantesModel = require('../Database/Models/DocumentosFaltantes
 const sequelize = require('../Database/configBD')
 const TipoDocumentoModel = require('../Database/Models/TipoDocumentoModel')
 
-const EmpresaControler = {
+const DocumentosFaltantesController = {
 
     create: async(req,res)=>{
         const {id_empleado_fk,id_tipo_documento_fk} = req.body
@@ -32,4 +32,4 @@ const EmpresaControler = {
 
 }
 
-module.exports = EmpresaControler
+module.exports = DocumentosFaltantesController

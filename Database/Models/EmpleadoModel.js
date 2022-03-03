@@ -226,7 +226,7 @@ EmpleadoModel.init({
         defaultValue: 3
     },
 
-    empelados_a_cargo:{
+    empleados_a_cargo:{
         type:DataTypes.BOOLEAN,
         defaultValue:0
     },
