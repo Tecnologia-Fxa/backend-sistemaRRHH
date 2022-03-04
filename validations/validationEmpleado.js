@@ -26,7 +26,7 @@ const validationEmpleado = [
     validateParam('tipo_contrato_fk'),
     validateParam('tipo_tiempo_fk'),
     validateParam('fecha_ingreso'),
-    validateParam('jefe_zona_fk'),
+    validateParam('jefe_directo_fk'),
     validateParam('estado_contrato_fk'),
     validateParam('salario_fk'),
     validateParam('aux_movilidad_fk'),

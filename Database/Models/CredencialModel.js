@@ -22,8 +22,6 @@ CredencialModel.init({
         allowNull: false
     },
 
-    src_avatar: DataTypes.STRING(100),
-
     usuario_fk:{
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -10,7 +10,8 @@ const { validationResult } = require('express-validator')
 
 const bcrypt = require('bcrypt')
 const moment = require('moment')
-const jwt = require('jwt-simple')
+const jwt = require('jwt-simple');
+const res = require('express/lib/response');
 
 
 const CredencialController = {
@@ -54,6 +55,21 @@ const CredencialController = {
             }
         }else{
             res.status(200).json('Error en usuario y/o contraseña')
+        }
+
+    },
+
+    changePass: async(req,res)=>{
+        let { oldPass, newPass} = req.body
+        const userValidation = await CredencialModel.findOne({where:{usuario_fk:req.idEmpleado}})
+        const passwordValidation = await bcrypt.compareSync(oldPass, userValidation.contraseña)
+        if(passwordValidation){
+            newPass = bcrypt.hashSync(newPass, 10)
+            await CredencialModel.update({contraseña:newPass},{where:{usuario_fk:req.idEmpleado}}).then(()=>{
+                res.status(201).json('Contraseña cambiada con exito')
+            })
+        }else{
+            res.json('La contraseña anterior está mal')
         }
 
     },

@@ -23,7 +23,9 @@ EmpleadoModel.init({
 
     numero_identificacion:{
         type: DataTypes.STRING(20),
-        unique:true,
+        unique:{
+            msg: 'Número de identificación ya registrado en el sistema'
+        },
         allowNull:false
     },
 
@@ -122,7 +124,9 @@ EmpleadoModel.init({
     correo_electronico:{
         type: DataTypes.STRING(50),
         allowNull: false,
-        unique: true
+        unique:{
+            msg: 'Correo electronico ya registrado en el sistema'
+        },
     },
 
     direccion:{

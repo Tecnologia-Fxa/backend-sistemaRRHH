@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const JefeDirectoController = require('../../controllers/JefeDirectoController')
 
+router.get('/', JefeDirectoController.getAll)
+
 router.get('/table-data', JefeDirectoController.getTableData)
 
 router.get('/empleados', JefeDirectoController.getEmp)

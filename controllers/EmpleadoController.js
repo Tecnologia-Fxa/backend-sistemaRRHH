@@ -222,10 +222,8 @@ const Controller = {
         if(!errors.isEmpty()){
             return res.status(400).json({ errors:errors.array() })
         }
-        
-        const resp = [false,false]
  
-        const empleadoCreado = await EmpleadoModel.create({
+        await EmpleadoModel.create({
             tipo_identificacion_fk,
             numero_identificacion,
             nombres,
@@ -268,21 +266,26 @@ const Controller = {
             talla_calzado_fk,
             empresa_fk,
             src_fotografia
+        }).then(async(empleadoCreado)=>{
+            let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
+
+            await CredencialModel.create({
+                nombre_usuario: empleadoCreado.numero_identificacion,
+                contraseña: contra,
+                usuario_fk: empleadoCreado.id_empleado
+            }).catch(err=>{
+                res.json({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
+            })
+
+            res.status(201).json("Creado con exito")
         }).catch((err)=>{
-            res.json({error:'Error al crear', err:err})
+            if(err.errors[0].type==='unique violation')
+                res.json(err.errors[0].message)
+            else
+                res.json({error:'Error al crear', err:err})
         })
 
-        let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
-
-        await CredencialModel.create({
-            nombre_usuario: empleadoCreado.numero_identificacion,
-            contraseña: contra,
-            usuario_fk: empleadoCreado.id_empleado
-        }).catch(err=>{
-            res.json({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
-        })
-
-        res.json("Creado con exito")
+        
 
     },
 
@@ -380,10 +383,11 @@ const Controller = {
             src_fotografia
         },{
             where:{ id_empleado:req.params.id}
+        }).then(()=>{
+            res.status(201).json("Actualizado con exito")
         }).catch(()=>{
-            res.json('Error al actualizar')
+            res.json('Error al actualizar Por información duplicada')
         })
-        res.json("Actualizado con exito")
     },
 
     disable: async(req, res)=>{
