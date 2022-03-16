@@ -13,4 +13,6 @@ router.get('/create-credentials', CredencialesController.createCredential)
 
 router.get('/data-top-bar', checkLogin, CredencialesController.InfoTopBar)
 
+router.post('/restore-pass', checkLogin, CredencialesController.restorePass)
+
 module.exports =  router

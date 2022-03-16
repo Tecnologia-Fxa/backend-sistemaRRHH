@@ -74,6 +74,17 @@ const CredencialController = {
 
     },
 
+    restorePass: async(req,res)=>{
+        let { idUsuario } = req.body
+        const dataUsuario = await EmpleadoModel.findByPk(idUsuario,{attributes:['id_empleado','numero_identificacion']})
+        let pass = bcrypt.hashSync(dataUsuario.numero_identificacion,10)
+        await CredencialModel.update({contraseña:pass},{where:{usuario_fk:dataUsuario.id_empleado}}).then(()=>{
+            res.json('Se ha restablecido la contraseña')
+        }).catch(err=>{
+            res.json('Error al restablecer')
+        })
+    },
+
     InfoTopBar:(req,res)=>{
         let usuario = {
             nombre: req.nombreEmpleado,
