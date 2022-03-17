@@ -12,6 +12,7 @@ const bcrypt = require('bcrypt')
 const moment = require('moment')
 const jwt = require('jwt-simple');
 const res = require('express/lib/response');
+const { enviarCorreo } = require('../helpers/sendEmailHelper');
 
 
 const CredencialController = {
@@ -72,6 +73,13 @@ const CredencialController = {
             res.json('La contraseña anterior está mal')
         }
 
+    },
+
+    emailRestorePass: async(req,res)=>{
+        /* const { numero_identificacion, nombre, centro_costo, cargo, tel_contacto, ciudad, mensaje } = req.body
+         */
+        const resp = enviarCorreo('ovargas@fuxiaaccesorios.com', 'Prueba Correo', 'Probao')
+        res.json(resp)
     },
 
     restorePass: async(req,res)=>{
