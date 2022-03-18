@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const enviarCorreo = (para, asunto, msj) => {
+const enviarCorreo = async(para, asunto, msj) => {
   const transporter = nodemailer.createTransport({
     host: 'mail4.correopremium.com',
     port: '465',
@@ -18,13 +18,18 @@ const enviarCorreo = (para, asunto, msj) => {
         html: msj,
     };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        console.log(error)
-    } else {
-      console.log('Correo enviado')
-    }
-  })
+     
+
+    return transporter.sendMail(mailOptions, (error, info) => {
+      let i = 'si'
+      if (error) {
+        i = error
+      } else {
+        i = 'correo enviado'
+      }
+      return i
+    })
+
 
 };
 

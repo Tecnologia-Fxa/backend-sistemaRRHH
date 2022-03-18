@@ -78,8 +78,9 @@ const CredencialController = {
     emailRestorePass: async(req,res)=>{
         /* const { numero_identificacion, nombre, centro_costo, cargo, tel_contacto, ciudad, mensaje } = req.body
          */
-        const resp = enviarCorreo('ovargas@fuxiaaccesorios.com', 'Prueba Correo', 'Probao')
-        res.json(resp)
+        enviarCorreo('fscalderon93@misena.edu.co', 'Prueba Correo', 'Probao').then(resp=>{
+            res.json(resp)
+        })
     },
 
     restorePass: async(req,res)=>{
