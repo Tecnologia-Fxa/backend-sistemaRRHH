@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+const express = require("express");
+const path = require('path');
 const checkLogin = require('../middlewares/checkTokenLog')
 
 const DefaultRouter = require('./routes/DefaultRouter')
@@ -17,6 +19,10 @@ router.use('/credencial', require('./routes/CredencialesRouter'))
 router.use('/documentos-faltantes', checkLogin, require('./routes/DocumentosFaltantesRouter'))
 
 router.use('/jefe-directo', checkLogin, require('./routes/JefeDirectoRouter'))
+
+router.use('/upload-file', checkLogin, require('./routes/UploadFileRouter'))
+
+router.use('/img/perfil', express.static(path.join(__dirname,'../images/PerfilImages')));
 
 //*Default Models
 

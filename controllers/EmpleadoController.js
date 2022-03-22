@@ -495,6 +495,11 @@ const Controller = {
         campo =campo.substring(0, campo.length - 1);
         const sql = await sequelize.query(`select${campo} from empleado emp1 ${inners} ${condicion}`) 
         res.json(sql[0])
+    },
+
+    getRouteImgPerfil:async(req,res)=>{
+        const imgRoute = await EmpleadoModel.findByPk(req.idEmpleado,{attributes:['src_fotografia']})
+        res.json(imgRoute.src_fotografia)
     }
 
 }

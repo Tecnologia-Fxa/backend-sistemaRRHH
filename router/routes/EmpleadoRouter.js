@@ -29,6 +29,8 @@ router.get('/default/certificado-lab', EmpleadoController.getInfoCertiLab)
 
 router.get('/default/data-emp-docs/:id', EmpleadoController.getDataEmpDocs)
 
+router.get('/default/obtener-img-perfil', EmpleadoController.getRouteImgPerfil)
+
 router.put('/certificado-lab-new-date/:id', EmpleadoController.updateDateGenCerti)
 
 router.post('/generar-reporte', EmpleadoController.genReporte)

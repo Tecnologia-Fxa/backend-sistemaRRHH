@@ -76,11 +76,22 @@ const CredencialController = {
     },
 
     emailRestorePass: async(req,res)=>{
-        /* const { numero_identificacion, nombre, centro_costo, cargo, tel_contacto, ciudad, mensaje } = req.body
-         */
-        enviarCorreo('fscalderon93@misena.edu.co', 'Prueba Correo', 'Probao').then(resp=>{
-            res.json(resp)
-        })
+        const { numero_identificacion, nombre, centro_costo, cargo, tel_contacto, ciudad, mensaje} = req.body
+        
+        const contMail  = `
+            Buen día,<br><br>
+            El <b>SIGE<b> te informa que un usuario solicita restablecimiento de su contraseña<br><br>
+            Doc: ${numero_identificacion}<br>
+            Nombre: ${nombre}<br>
+            Centro de costo: ${centro_costo}<br>
+            Cargo: ${cargo}<br>
+            Telefono Contacto: ${tel_contacto}<br>
+            Ciudad: ${ciudad}<br>
+            Mensaje adicional: ${mensaje?mensaje:'Sin Mensaje Adicional'}<br><br>
+            Verifica que la información sea valida y realiza o no el restablecimiento de contraseña de usuario.
+        `
+
+        enviarCorreo('fscalderon93@misena.edu.co', 'Restablecimiento de contraseña // SIGE', contMail, res)
     },
 
     restorePass: async(req,res)=>{
