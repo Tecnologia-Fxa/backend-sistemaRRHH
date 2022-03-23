@@ -14,7 +14,7 @@ const JefeDirectoController = {
     },
 
     getEmp: async(_req,res)=>{
-        const empleados = await EmpleadoModel.findAll({where:{empleados_a_cargo:0},attributes:['id_empleado','nombres','apellidos','numero_identificacion']})
+        const empleados = await EmpleadoModel.findAll({where:{empleados_a_cargo:0},attributes:['id_empleado','nombres','apellidos','numero_identificacion', 'src_fotografia']})
         res.json(empleados)
     },
 

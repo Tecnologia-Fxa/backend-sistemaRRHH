@@ -17,7 +17,22 @@ const fileUpload = multer({
     storage: diskstorage
 }).single('file')
 
+const diskstorageFileEmp = multer.diskStorage(
+    {
+        destination: path.join(__dirname,'../../files'),
+        filename:(req, file,cb)=>{
+            cb(null,'SIGE_File_userId' + req.idEmpleado + '_' + Date.now() + '_' + file.originalname)
+        }
+    }
+)
+
+const fileUploadFileEmp = multer({
+    storage: diskstorageFileEmp
+}).single('file')
+
 
 router.post('/perfil-image', fileUpload, UploadFileController.uploadPerfilImage)
+
+router.post('/file-emp', fileUploadFileEmp, UploadFileController.uploadFile)
 
 module.exports =  router

@@ -22,7 +22,11 @@ router.use('/jefe-directo', checkLogin, require('./routes/JefeDirectoRouter'))
 
 router.use('/upload-file', checkLogin, require('./routes/UploadFileRouter'))
 
+router.use('/documentos', checkLogin, require('./routes/DocumentosRouter'))
+
 router.use('/img/perfil', express.static(path.join(__dirname,'../images/PerfilImages')));
+
+router.use('/file/emp', express.static(path.join(__dirname,'../files')));
 
 //*Default Models
 

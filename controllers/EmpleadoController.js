@@ -45,7 +45,7 @@ const Controller = {
                 { model: EmpleadoModel, as:'jefe_directo', attributes:['nombres','apellidos']},
                 { model: EmpresaModel, attributes:['nombre_empresa']}
             ],
-            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
+            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso', 'src_fotografia'],
             where:{estado:1}
         })
         res.json(items)
@@ -59,7 +59,7 @@ const Controller = {
                 { model: EmpleadoModel, as:'jefe_directo', attributes:['nombres','apellidos']},
                 { model: EmpresaModel, attributes:['nombre_empresa']}
             ],
-            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso'],
+            attributes:['id_empleado', 'numero_identificacion', 'nombres', 'fecha_ingreso', 'src_fotografia'],
             where:{estado:0}
         })
         res.json(items)
@@ -112,7 +112,7 @@ const Controller = {
 
     getDataEmpDocs:async(req,res)=>{
         const item = await EmpleadoModel.findByPk(req.params.id,{
-            attributes:['nombres','apellidos','numero_identificacion','correo_electronico','celular'],
+            attributes:['nombres','apellidos','numero_identificacion','correo_electronico','celular','src_fotografia'],
             include:[
                 {model:TipoIdentificacionModel,attributes:['nombre_tipo_identificacion']},
                 {model:EmpresaModel,attributes:['nombre_empresa']},

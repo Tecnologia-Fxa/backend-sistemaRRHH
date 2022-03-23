@@ -1,3 +1,5 @@
+const req = require("express/lib/request")
+const DocumentoModel = require("../Database/Models/DocumentoModel")
 const EmpleadoModel = require("../Database/Models/EmpleadoModel")
 
 const fs = require('fs').promises
@@ -9,17 +11,37 @@ const UploadFileControler = {
             res.json('Error al subir la imagen')
         else{
             EmpleadoModel.findByPk(req.idEmpleado,{attributes:['src_fotografia']}).then(data=>{
-                console.log(`./images/PerfilImages/${data.src_fotografia}`)
-                fs.unlink(`./images/PerfilImages/${data.src_fotografia}`, err=>{
-                    if(err)
-                        console.log(err)
-                })
                 EmpleadoModel.update({src_fotografia:req.file.filename}, {where:{id_empleado:req.idEmpleado}}) 
-                res.status(201).json('Actualizado con exito')
+                if(data.src_fotografia!== req.file.filename){
+                    fs.unlink(`./images/PerfilImages/${data.src_fotografia}`).then(()=>{
+                        res.status(201).json('Actualizado con exito')
+                    }).catch(()=>{
+                        res.status(201).json('Guardado con exito')
+                    })
+                }
             })
-            
-            
         }
+    },
+
+    uploadFile:async(req,res)=>{
+        const { tipo_documento_fk } = req.body
+        if(!req.file)
+            res.json('Error al subir el archivo')
+        else{
+            DocumentoModel.create({
+                nombre_documento: req.file.originalname,
+                src_documento: req.file.filename,
+                tipo_documento_fk,
+                empleado_fk: req.idEmpleado
+            }).then(()=>{
+                res.json('Subido con exito')
+            })
+        }
+    },
+
+    getUploadFiles:async(_req,res)=>{
+        const documentos = DocumentoModel.findAll({where:{empleado_fk:req.params.id}})
+        res.json(documentos)
     }
 
 }
