@@ -1,3 +1,5 @@
+const { checkRolSoporte } = require("../../middlewares/checkRol");
+
 const DefaultRouter3 = (modelo, id, talla, name) =>{
     const router = require("express").Router();
 
@@ -10,15 +12,15 @@ const DefaultRouter3 = (modelo, id, talla, name) =>{
 
     router.get('/', controller.getAll)
 
-    router.get('/default/table-data', controller.getTableData)
+    router.get('/default/table-data', checkRolSoporte, controller.getTableData)
 
     router.get('/:id', controller.getOne)
 
-    router.post('/', validationDefault3, controller.create)
+    router.post('/', checkRolSoporte, validationDefault3, controller.create)
 
-    router.put('/:id', validationDefault3, controller.update)
+    router.put('/:id', checkRolSoporte, validationDefault3, controller.update)
 
-    router.delete('/:id', controller.delete)
+    router.delete('/:id', checkRolSoporte, controller.delete)
 
     return router
 }

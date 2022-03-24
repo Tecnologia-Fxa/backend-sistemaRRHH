@@ -24,12 +24,12 @@ const UploadFileControler = {
     },
 
     uploadFile:async(req,res)=>{
-        const { tipo_documento_fk } = req.body
+        const { tipo_documento_fk, nombre_documento } = req.body
         if(!req.file)
             res.json('Error al subir el archivo')
         else{
             DocumentoModel.create({
-                nombre_documento: req.file.originalname,
+                nombre_documento,
                 src_documento: req.file.filename,
                 tipo_documento_fk,
                 empleado_fk: req.idEmpleado

@@ -17,7 +17,7 @@ DocumentoModel.init({
     },
 
     src_documento:{
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(200),
         unique: true,
         allowNull: false
     },
