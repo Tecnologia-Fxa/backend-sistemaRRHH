@@ -75,6 +75,6 @@ router.use('/talla-pantalon', checkLogin, checkRolAdmin, DefaultRouter3('TallaPa
 
 router.use('/talla-calzado', checkLogin, checkRolAdmin, DefaultRouter3('TallaCalzadoModel', 'id_talla_calzado', 'nombre_talla_calzado', 'talla_calzado'))
 
-router.use('/tipo-documento', checkLogin, checkRolAdmin, DefaultRouter('TipoDocumentoModel', 'id_tipo_documento', 'nombre_tipo_documento', 'tipo_documento'))
+router.use('/tipo-documento', checkLogin, DefaultRouter('TipoDocumentoModel', 'id_tipo_documento', 'nombre_tipo_documento', 'tipo_documento'))
 
 module.exports = router
