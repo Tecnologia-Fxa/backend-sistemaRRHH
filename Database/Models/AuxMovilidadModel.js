@@ -1,8 +1,10 @@
+/* Tabla que contiene los datos referentes a el auxilio de movilidad */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class AuxMovilidadModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 AuxMovilidadModel.init({
 
     id_aux_movilidad:{

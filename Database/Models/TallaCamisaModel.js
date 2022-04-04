@@ -1,8 +1,10 @@
+/* Tabla que contiene la información de las tallas de camisa que pueden tener los empleados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class TallaCamisaModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 TallaCamisaModel.init({
 
     id_talla_camisa:{

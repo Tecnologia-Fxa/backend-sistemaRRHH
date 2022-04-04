@@ -1,8 +1,10 @@
+/* Tabla que contiene la informacion de los tipos de contrato que pueden tener los empleados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class TipoContratoModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 TipoContratoModel.init({
 
     id_tipo_contrato:{

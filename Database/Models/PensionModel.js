@@ -1,8 +1,11 @@
+/* Tabla que contiene todos los datos relacionados a la pension que pueden tener los empleados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class PensionModel extends Model {};
 
+//Se usa el metodo init en el cual apartir de unos parametros dados realizara el mapeo
+//?La explicación basica de cada campo esta explicada en otros Modelos
 PensionModel.init({
 
     id_pension:{

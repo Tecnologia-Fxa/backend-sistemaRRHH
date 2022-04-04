@@ -1,8 +1,10 @@
+/* Tabla que alberga toda la información correspondiente a los estudios realizados por los empelados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class EstudiosRealizadosModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 EstudiosRealizadosModel.init({
 
     id_estudios:{

@@ -1,8 +1,10 @@
+/* Tabla que almacena la información de las posibles opciones de tipo tiempo que tienen los empleados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class TiempoModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 TiempoModel.init({
 
     id_tiempo:{

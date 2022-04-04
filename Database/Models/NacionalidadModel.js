@@ -1,8 +1,10 @@
+/* Tabla que almacena las posibles nacionalidades de los empleados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class NacionalidadModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 NacionalidadModel.init({
 
     id_nacionalidad:{

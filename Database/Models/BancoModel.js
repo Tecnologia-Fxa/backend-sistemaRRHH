@@ -1,8 +1,10 @@
+/* Tabla encargada de almacenar los bancos que pueden tener los empelados */
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
 class BancoModel extends Model {};
 
+//?La explicación basica de cada campo esta explicada en otros Modelos
 BancoModel.init({
 
     id_banco:{

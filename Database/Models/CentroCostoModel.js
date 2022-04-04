@@ -1,3 +1,6 @@
+/* Tabla que almacenara todos los centros de costo de la compañia */
+//?Explicación basica se encuentra en los otros Modelos
+
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('../configBD');
 
@@ -17,8 +20,11 @@ CentroCostoModel.init({
         allowNull: false
     },
 
+    //Campo que contiene la ciudad donde se encuentra el centro de costo
     id_ciudad_fk:{
+        //Tipo de dato númerico
         type: DataTypes.INTEGER,
+        //Obligatorio
         allowNull: false
     }
 
