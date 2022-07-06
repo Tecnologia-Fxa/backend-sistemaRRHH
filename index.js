@@ -43,9 +43,9 @@ app.use(express.urlencoded({ extended:false }));
 const cors = require('cors')
 app.use(cors())
 
-//Acontinuacion la sección que redirecciona cuando la busqueda sea / 
+//Acontinuacion la sección que redirecciona cuando la busqueda sea /api-rrhh
 //Cuando se entra al sistema
-app.use('/', require('./router/router'))
+app.use('/api-rrhh', require('./router/router'))
 
 app.listen(PORT, () =>{
     console.log(`El proyecto a sido arrancado en http://localhost:${PORT}`);
