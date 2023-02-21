@@ -14,7 +14,7 @@ ArlModel.init({
     },
 
     nombre_arl:{
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING(50),
         unique: true,
         allowNull: false
     }

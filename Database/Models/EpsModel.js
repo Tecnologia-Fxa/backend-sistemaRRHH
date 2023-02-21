@@ -14,7 +14,7 @@ EpsModel.init({
     },
 
     nombre_eps:{
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(50),
         unique: true,
         allowNull: false
     }
