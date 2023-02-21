@@ -500,6 +500,61 @@ const Controller = {
     getRouteImgPerfil:async(req,res)=>{
         const imgRoute = await EmpleadoModel.findByPk(req.idEmpleado,{attributes:['src_fotografia']})
         res.json(imgRoute.src_fotografia)
+    },
+
+    upsertArray:async(req,res)=>{
+
+        const empeladosArray = req.body.empleados
+        empeladosArray.forEach(async(el) => {
+            await EmpleadoModel.upsert({
+                tipo_identificacion_fk:el.tipo_identificacion_fk,
+                numero_identificacion:el.numero_identificacion,
+                nombres:el.nombres,
+                apellidos:el.apellidos,
+                genero:el.genero,
+                fecha_nacimiento:el.fecha_nacimiento,
+                lugar_nacimiento_fk:el.lugar_nacimiento_fk,
+                fecha_expedicion_doc:el.fecha_expedicion_doc,
+                lugar_exp_doc_fk:el.lugar_exp_doc_fk,
+                nacionalidad_fk:el.nacionalidad_fk,
+                estado_civil_fk:el.estado_civil_fk,
+                centro_costo_fk:el.centro_costo_fk,
+                lugar_trabajo_fk:el.lugar_trabajo_fk,
+                cargo_fk:el.cargo_fk,
+                tipo_contrato_fk:el.tipo_contrato_fk,
+                tipo_tiempo_fk:el.tipo_tiempo_fk,
+                fecha_ingreso:el.fecha_ingreso,
+                jefe_directo_fk:el.jefe_directo_fk,
+                estado_contrato_fk:el.estado_contrato_fk,
+                salario_fk:el.salario_fk,
+                aux_movilidad_fk:el.aux_movilidad_fk,
+                correo_electronico:el.correo_electronico,
+                direccion:el.direccion,
+                telefono_fijo:el.telefono_fijo,
+                celular:el.celular,
+                estudios_fk:el.estudios_fk,
+                banco_fk:el.banco_fk,
+                tipo_cuenta_fk:el.tipo_cuenta_fk,
+                num_cuenta:el.num_cuenta,
+                eps_fk:el.eps_fk,
+                arl_fk:el.arl_fk,
+                riesgo:el.riesgo,
+                pension_fk:el.pension_fk,
+                cesantias_fk:el.cesantias_fk,
+                ccf_fk:el.ccf_fk,
+                contacto_emergencia:el.contacto_emergencia,
+                tel_contacto_emergencia:el.tel_contacto_emergencia,
+                talla_camisa_fk:el.talla_camisa_fk,
+                talla_pantalon_fk:el.talla_pantalon_fk,
+                talla_calzado_fk:el.talla_calzado_fk,
+                empresa_fk:el.empresa_fk,
+                src_fotografia:el.src_fotografia
+            }).then(respuestaEmpleado=>{
+                console.log(respuestaEmpleado)
+            })
+        });
+        res.json('La información enviada se esta cargando en el servidor')
+        
     }
 
 }
