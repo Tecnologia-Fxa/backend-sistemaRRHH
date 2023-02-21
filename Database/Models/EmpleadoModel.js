@@ -322,13 +322,13 @@ EmpleadoModel.init({
     //Campo que almacena el nombre de la persona encargada del empelado en caso de emergencia
     contacto_emergencia:{
         //Tipo de dato Texto con maximo de 30 caracteres
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(80),
     },
 
     //Campo que almacena el número del contacto de emergencia del empelado
     tel_contacto_emergencia:{
         //Tipo String(Texto) con maximo de 20 caracteres
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(50),
         //Campo obligatorio
         allowNull: false
     },
