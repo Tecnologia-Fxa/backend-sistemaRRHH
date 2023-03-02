@@ -555,7 +555,17 @@ const Controller = {
         });
         res.json('La información enviada se esta cargando en el servidor')
         
+    },
+
+    getTawktoInfo:async(req,res)=>{
+        const item = await EmpleadoModel.findByPk(req.idEmpleado,{
+            include:[
+                { model: CargoModel, attributes:['nombre_cargo']} 
+            ]
+        })
+        res.json(item)
     }
+
 
 }
 module.exports = Controller 

@@ -22,6 +22,8 @@ router.get('/porcentaje-empleados', checkRolAdmin, EmpleadoController.dataEmplea
 
 router.get('/:id', checkRolAdmin, EmpleadoController.getOne)
 
+router.get('/tawkto-info', EmpleadoController.getTawktoInfo)
+
 router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
 
 router.get('/default/certificado-lab', EmpleadoController.getInfoCertiLab)
