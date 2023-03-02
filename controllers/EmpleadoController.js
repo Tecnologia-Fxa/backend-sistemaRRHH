@@ -564,8 +564,8 @@ const Controller = {
                 { model: CargoModel, attributes:['nombre_cargo']} 
             ]
         })
-        
-        res.json({...item, cargo:item.cargo.nombre_cargo})
+        let respuesta = {...item, ...{cargo:item.cargo.nombre_cargo}}
+        res.json(respuesta)
     }
 
 
