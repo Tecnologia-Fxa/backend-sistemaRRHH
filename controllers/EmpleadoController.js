@@ -565,7 +565,7 @@ const Controller = {
             ]
         })
         
-        res.json({item, cargo:item.cargo.nombre_cargo})
+        res.json({...item, cargo:item.cargo.nombre_cargo})
     }
 
 
