@@ -20,9 +20,9 @@ router.get('/datos-cartas', checkRolAdmin, EmpleadoController.listDataCard)
 
 router.get('/porcentaje-empleados', checkRolAdmin, EmpleadoController.dataEmpleadosEmpresa)
 
-router.get('/:id', checkRolAdmin, EmpleadoController.getOne)
-
 router.get('/tawkto-info', EmpleadoController.getTawktoInfo)
+
+router.get('/:id', checkRolAdmin, EmpleadoController.getOne)
 
 router.get('/info-perfil/:id', EmpleadoController.getInfoPerfil)
 
