@@ -559,6 +559,7 @@ const Controller = {
 
     getTawktoInfo:async(req,res)=>{
         const item = await EmpleadoModel.findByPk(req.idEmpleado,{
+            attributes:['nombres','apellidos','correo_electronico'],
             include:[
                 { model: CargoModel, attributes:['nombre_cargo']} 
             ]
