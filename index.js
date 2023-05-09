@@ -53,6 +53,13 @@ const corsOptions = {
 // Habilita CORS con las opciones configuradas
 app.use(cors(corsOptions));
 
+//Permitir el acceso de talentohumano -> el front
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://talentohumano.fxa.com.co');
+    next();
+  });
+  
+
 //Acontinuacion la sección que redirecciona cuando la busqueda sea /api-rrhh
 //Cuando se entra al sistema
 app.use('/api-rrhh', require('./router/router'))
