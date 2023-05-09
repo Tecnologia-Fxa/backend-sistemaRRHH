@@ -40,8 +40,18 @@ app.use(express.urlencoded({ extended:false }));
 
 //El siguiente fragmento de codigo evita el error de cors
 //El error de cors se da porque los headers bloquean el flujo de la información por seguridad
-const cors = require('cors')
-app.use(cors());
+// Importa la librería cors
+const cors = require('cors');
+
+// Configura las opciones de CORS
+const corsOptions = {
+  origin: 'http://talentohumano.fxa.com.co',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Agrega 'OPTIONS' a los métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Agrega los encabezados permitidos
+};
+
+// Habilita CORS con las opciones configuradas
+app.use(cors(corsOptions));
 
 //Acontinuacion la sección que redirecciona cuando la busqueda sea /api-rrhh
 //Cuando se entra al sistema
