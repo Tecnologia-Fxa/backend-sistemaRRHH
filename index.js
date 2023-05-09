@@ -41,9 +41,7 @@ app.use(express.urlencoded({ extended:false }));
 //El siguiente fragmento de codigo evita el error de cors
 //El error de cors se da porque los headers bloquean el flujo de la información por seguridad
 const cors = require('cors')
-app.use(cors({
-    origin: 'http://talentohumano.fxa.com.co',
-  }));
+app.use(cors());
 
 //Acontinuacion la sección que redirecciona cuando la busqueda sea /api-rrhh
 //Cuando se entra al sistema
