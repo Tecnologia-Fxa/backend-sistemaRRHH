@@ -555,7 +555,7 @@ const Controller = {
                 console.log(empleadoCreado.numero_identificacion)
                 CredencialModel.findOne({where:{nombre_usuario:empleadoCreado.numero_identificacion}}).then(async(respCredencial)=>{
                     if(respCredencial == null){
-                        let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
+                        let contra = await bcrypt.hash(empleadoCreado.numero_identificacion, 10)
                         await CredencialModel.create({
                             nombre_usuario: empleadoCreado.numero_identificacion,
                             contraseña: contra,
