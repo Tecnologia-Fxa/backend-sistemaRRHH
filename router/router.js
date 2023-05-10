@@ -11,7 +11,7 @@ const DefaultRouter3 = require('./routes/DefaultRouter3')
 
 router.use('/empresa', checkLogin, checkRolAdmin, require('./routes/EmpresaRouter'))
 
-router.use('/empleado', checkLogin, require('./routes/EmpleadoRouter'))
+router.use('/empleado', /* checkLogin, */ require('./routes/EmpleadoRouter'))
 
 router.use('/centro-costo', checkLogin, checkRolAdmin, require('./routes/CentroCostoRouter'))
 
