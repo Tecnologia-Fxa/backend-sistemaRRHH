@@ -561,7 +561,7 @@ const Controller = {
                             contraseña: contra,
                             usuario_fk: empleadoCreado.id_empleado
                         }).catch(err=>{
-                            res.json({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
+                            console.log({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
                         })
                     }
                 })
