@@ -549,8 +549,22 @@ const Controller = {
                 talla_calzado_fk:el.talla_calzado_fk,
                 empresa_fk:el.empresa_fk,
                 src_fotografia:el.src_fotografia
-            }).then(respuestaEmpleado=>{
-                console.log(respuestaEmpleado)
+            }).then(async(empleadoCreado)=>{
+                console.log(empleadoCreado)
+
+                CredencialModel.findOne({where:{nombre_usuario:empleadoCreado.numero_identificacion}}).then(async(respCredencial)=>{
+                    if(respCredencial == null){
+                        let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
+                        await CredencialModel.create({
+                            nombre_usuario: empleadoCreado.numero_identificacion,
+                            contraseña: contra,
+                            usuario_fk: empleadoCreado.id_empleado
+                        }).catch(err=>{
+                            res.json({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
+                        })
+                    }
+                })
+
             })
         });
         res.json('La información enviada se esta cargando en el servidor')
