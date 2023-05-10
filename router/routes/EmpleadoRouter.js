@@ -36,11 +36,11 @@ router.put('/certificado-lab-new-date/:id', EmpleadoController.updateDateGenCert
 
 router.post('/generar-reporte', /* checkRolAdmin, */ EmpleadoController.genReporte)
 
-router.post('/', validationEmpleado, /* checkRolAdmin, */ EmpleadoController.create)
+router.post('/', /* validationEmpleado, */ /* checkRolAdmin, */ EmpleadoController.create)
 
 router.post('/cargue-masivo', /* checkRolAdmin, */ EmpleadoController.upsertArray)
 
-router.put('/:id', validationEmpleado, /* checkRolAdmin, */ EmpleadoController.update)
+router.put('/:id', /* validationEmpleado, */ /* checkRolAdmin, */ EmpleadoController.update)
 
 router.put('/inactivar/:id', /* checkRolAdmin, */ EmpleadoController.disable) 
 
