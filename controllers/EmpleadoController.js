@@ -550,6 +550,7 @@ const Controller = {
                 empresa_fk:el.empresa_fk,
                 src_fotografia:el.src_fotografia
             }).then(async(empleadoCreado)=>{
+                empleadoCreado = empleadoCreado[0]
                 console.log(empleadoCreado)
                 console.log(empleadoCreado.numero_identificacion)
                 CredencialModel.findOne({where:{nombre_usuario:empleadoCreado.numero_identificacion}}).then(async(respCredencial)=>{
