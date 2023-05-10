@@ -551,17 +551,18 @@ const Controller = {
                 src_fotografia:el.src_fotografia
             }).then(async(empleadoCreado)=>{
                 empleadoCreado = empleadoCreado[0]
-                console.log(empleadoCreado)
-                console.log(empleadoCreado.numero_identificacion)
-                CredencialModel.findOne({where:{nombre_usuario:empleadoCreado.numero_identificacion}}).then(async(respCredencial)=>{
+                let empleadoQuery = await EmpleadoModel.findOne({where:{numero_identificacion:empleadoCreado.numero_identificacion}})
+                console.log(empleadoQuery)
+                console.log(empleadoQuery.numero_identificacion)
+                CredencialModel.findOne({where:{nombre_usuario:empleadoQuery.numero_identificacion}}).then(async(respCredencial)=>{
                     if(respCredencial == null){
-                        let contra = await bcrypt.hash(empleadoCreado.numero_identificacion.toString(), 10)
+                        let contra = await bcrypt.hash(empleadoQuery.numero_identificacion.toString(), 10)
                         await CredencialModel.create({
-                            nombre_usuario: empleadoCreado.numero_identificacion,
+                            nombre_usuario: empleadoQuery.numero_identificacion,
                             contraseña: contra,
-                            usuario_fk: empleadoCreado.id_empleado
+                            usuario_fk: empleadoQuery.id_empleado
                         }).catch(err=>{
-                            console.log({texto:'error al crear en:'+ empleadoCreado.id_empleado, err})
+                            console.log({texto:'error al crear en:'+ empleadoQuery.id_empleado, err})
                         })
                     }
                 })
