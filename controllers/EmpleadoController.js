@@ -551,7 +551,7 @@ const Controller = {
                 src_fotografia:el.src_fotografia
             }).then(async(empleadoCreado)=>{
                 console.log(empleadoCreado)
-
+                console.log(empleadoCreado.numero_identificacion)
                 CredencialModel.findOne({where:{nombre_usuario:empleadoCreado.numero_identificacion}}).then(async(respCredencial)=>{
                     if(respCredencial == null){
                         let contra = bcrypt.hashSync(empleadoCreado.numero_identificacion, 10)
