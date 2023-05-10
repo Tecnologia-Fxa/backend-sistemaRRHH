@@ -13,13 +13,13 @@ const DefaultRouter2 = (modelo, id, talla, name) =>{
 
     router.get('/:id', controller.getOne)
 
-    router.get('/default/table-data', /* checkRolSoporte, */ controller.getTableData)
+    router.get('/default/table-data', checkRolSoporte, controller.getTableData)
 
-    router.post('/', /* checkRolSoporte, */ validationDefault2, controller.create)
+    router.post('/', checkRolSoporte, validationDefault2, controller.create)
 
-    router.put('/:id', /* checkRolSoporte, */ validationDefault2, controller.update)
+    router.put('/:id', checkRolSoporte, validationDefault2, controller.update)
 
-    router.delete('/:id', /* checkRolSoporte, */ controller.delete)
+    router.delete('/:id', checkRolSoporte, controller.delete)
 
     return router
 }

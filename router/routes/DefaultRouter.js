@@ -14,13 +14,13 @@ const DefaultRouter = (modelo, id, nombre, name, fk_emp = name) =>{
 
     router.get('/:id', controller.getOne)
 
-    router.get('/default/table-data',  /* checkRolSoporte, */ controller.getTableData)
+    router.get('/default/table-data',  checkRolSoporte, controller.getTableData)
 
-    router.post('/', /* checkRolSoporte, */  /* validationDefault, */ controller.create)
+    router.post('/', checkRolSoporte,  validationDefault, controller.create)
 
-    router.put('/:id',  /* checkRolSoporte, */ /* validationDefault, */ controller.update)
+    router.put('/:id',  checkRolSoporte, validationDefault, controller.update)
 
-    router.delete('/:id',  /* checkRolSoporte, */ controller.delete)
+    router.delete('/:id',  checkRolSoporte, controller.delete)
 
     return router
 }
