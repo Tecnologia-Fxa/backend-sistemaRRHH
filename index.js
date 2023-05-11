@@ -37,6 +37,10 @@ require('./Database/relacionesBD')
  */
 app.use(express.json());
 app.use(express.urlencoded({ extended:false }));
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '250mb' }));
+app.use(bodyParser.urlencoded({ limit: '250mb', extended: true }));
+
 
 //El siguiente fragmento de codigo evita el error de cors
 //El error de cors se da porque los headers bloquean el flujo de la información por seguridad
