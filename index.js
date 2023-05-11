@@ -37,6 +37,11 @@ require('./Database/relacionesBD')
  */
 app.use(express.json());
 app.use(express.urlencoded({ extended:false }));
+
+
+// Configura el límite de tamaño máximo para las solicitudes
+app.use(express.json({ limit: '250mb' }));
+app.use(express.urlencoded({ limit: '250mb', extended: true }));
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '250mb' }));
 app.use(bodyParser.urlencoded({ limit: '250mb', extended: true }));
