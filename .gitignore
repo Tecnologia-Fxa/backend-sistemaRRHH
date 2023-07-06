@@ -5,3 +5,9 @@
 
 //Ignorara la carpeta de node modules
 /node_modules
+
+
+//Ignora archivos de pdf y imagen de la carpeta files
+/files/*.pdf
+/files/*.png
+/files/*.jpg
