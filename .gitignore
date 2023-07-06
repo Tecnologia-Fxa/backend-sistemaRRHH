@@ -1,0 +1,7 @@
+
+//Ignorara la sincronizacion del archivo de variables de entorno
+.env
+
+
+//Ignorara la carpeta de node modules
+/node_modules
