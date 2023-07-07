@@ -32,6 +32,8 @@ const SalarioModel = require('./Models/SalarioModel');
 const EmpresaModel = require('./Models/EmpresaModel');
 const AuxMovilidadModel = require('./Models/AuxMovilidadModel');
 const DocumentosFaltantesModel = require('./Models/DocumentosFaltantesModel');
+const InscripcionEmpleadoConvocatoriaModel = require('./Models/InscripcionEmpleadoConvocatoriaModel');
+const ConvocatoriaModel = require('./Models/ConvocatoriaModel');
 
 
 //!-------------------------------------------------------------------------------------------------
@@ -211,6 +213,18 @@ DocumentoModel.belongsTo(EmpleadoModel, { foreignKey:'empleado_fk' })
 CiudadModel.hasMany(CentroCostoModel, { as:'centro_costo', foreignKey:'id_ciudad_fk' });
 CentroCostoModel.belongsTo(CiudadModel, { foreignKey:'id_ciudad_fk' })
 
+//!-------------------RELACIONES V2 (Convocatoria)
+
+//Relacion ciudad y convocatoria (foranea en convocatoria)
+CiudadModel.hasMany(ConvocatoriaModel, { as:'convocatoria', foreignKey:'id_ciudad_fk' });
+ConvocatoriaModel.belongsTo(CiudadModel, { foreignKey:'id_ciudad_fk' })
+
+//Relacion centro_costo y convocatoria (foranea en convocatoria)
+CentroCostoModel.hasMany(ConvocatoriaModel, { as:'convocatoria', foreignKey:'id_centro_costo_fk' });
+ConvocatoriaModel.belongsTo(CentroCostoModel, { foreignKey:'id_centro_costo_fk' })
+
+
+
 //!-------------------------------------------------------------------------------------------------
 
 //?Para erradicar una relacion de M:N se creo una tabla debil que sera mostrada a continuacion
@@ -224,3 +238,14 @@ DocumentosFaltantesModel.belongsTo(TipoDocumentoModel, { foreignKey:'id_tipo_doc
 //*1 documento faltante solo puede tener 1 empleado, pero 1 empelado puede tener muchos documentos faltantes
 EmpleadoModel.hasMany(DocumentosFaltantesModel, { as:'documentos_faltantes', foreignKey:'id_empleado_fk' });
 DocumentosFaltantesModel.belongsTo(EmpleadoModel, { foreignKey:'id_empleado_fk' })
+
+
+//?Lo mismo pasa con la siguiente relacion de la tabla que hace parte de la V2 (Convocatoria)
+
+//Relacion inscripcion_empleado_convocatoria y empleado (foranea en inscripcion_empleado_convocatoria)
+EmpleadoModel.hasMany(InscripcionEmpleadoConvocatoriaModel, { as:'inscripcion_empleado_convocatoria', foreignKey:'id_empleado_fk' });
+InscripcionEmpleadoConvocatoriaModel.belongsTo(EmpleadoModel, { foreignKey:'id_empleado_fk' })
+
+//Relacion inscripcion_empleado_convocatoria y convocatoria (foranea en inscripcion_empleado_convocatoria)
+ConvocatoriaModel.hasMany(InscripcionEmpleadoConvocatoriaModel, { as:'inscripcion_empleado_convocatoria', foreignKey:'id_convocatoria_fk' });
+InscripcionEmpleadoConvocatoriaModel.belongsTo(ConvocatoriaModel, { foreignKey:'id_convocatoria_fk' })
