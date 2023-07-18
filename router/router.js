@@ -77,4 +77,10 @@ router.use('/talla-calzado', checkLogin, checkRolAdmin, DefaultRouter3('TallaCal
 
 router.use('/tipo-documento', checkLogin, DefaultRouter('TipoDocumentoModel', 'id_tipo_documento', 'nombre_tipo_documento', 'tipo_documento'))
 
+//! ----------------------- Rutas V2
+
+router.use('/convocatoria', checkLogin, require('./routes/ConvocatoriaRouter'))
+
+router.use('/inscripcion-convocatoria', checkLogin, require('./routes/InscripcionConvocatoriaRouter'))
+
 module.exports = router

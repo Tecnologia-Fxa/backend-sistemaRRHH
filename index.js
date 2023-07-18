@@ -53,6 +53,12 @@ app.use(cors())
 //Cuando se entra al sistema
 app.use('/api-rrhh', require('./router/router'))
 
+//Configuramos valores por defecto de moment
+const moment = require('moment');
+moment.locale('es');
+moment.tz.setDefault('America/Bogota');
+
+
 app.listen(PORT, () =>{
     console.log(`El proyecto a sido arrancado en http://localhost:${PORT}`);
 
